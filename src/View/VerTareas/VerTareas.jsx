@@ -1,44 +1,44 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ApiContext } from '../../Context/ApiProvider'
-import { doc, getDoc } from "firebase/firestore";
-import { db } from '../../Firebase/Config';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+
 
 
 
 const VerTareas = () => {
 
-    const { user } = useContext(ApiContext)
-
-    const [prueba, setPrueba] = useState("")
+    const { user, getByDate } = useContext(ApiContext)
 
 
 
-    // useEffect(() => {
+
+    useEffect(() => {
 
 
-    //     if (user.length !== 0) {
+        if (user !== undefined) {
 
-    //         console.log(user.tasks[0].fecha)//[0]tiene que mostrar todos los elementos
-    //         const futuroTIempo = user.tasks[0].fecha.toDate()
+            // console.log(user);
+            // console.log(user.tasks);
+            try {
+                getByDate()
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
-    //         setPrueba(futuroTIempo);
-
-
-    //         if (prueba !== undefined) {
-    //             console.log(prueba);
-    //         }
-    //     }
-
-    // }, [user])
+    }, [user])
 
 
 
 
     return (
         <div>
-            <h1>VerTareas</h1>
+            <Link to={`/`}>
+                <h1>HOME</h1>
+            </Link>
+
+
+            <h4>VerTareas</h4>
 
 
 
