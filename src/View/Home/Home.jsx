@@ -1,24 +1,29 @@
-import React, { useContext, useEffect } from 'react'
-import useFirebase from '../../Hook/useFirebase'
-import { ApiContext } from '../../Context/ApiProvider'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
-    const [user] = useFirebase()
-
-    const { prueba } = useContext(ApiContext)
-
-    useEffect(() => {
-        if (user.length !== 0) {
-
-            console.log(user);
-            prueba()
-        }
-    }, [user])
-
 
     return (
-        <div>Home</div>
+        <div className='centrar'>
+
+            <Link to={`/`}>
+                <h1>HOME</h1>
+            </Link>
+
+            <Link to={`/asignar-tarea`}>
+                ASIGNAR TAREA
+            </Link>
+
+            <Link to={`/ver-tarea`}>
+                VER TAREA
+            </Link>
+
+            <Link to={`/tarea-rapida`}>
+                TAREA RAPIDA
+            </Link>
+
+        </div>
     )
 }
 
