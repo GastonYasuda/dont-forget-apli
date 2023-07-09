@@ -23,6 +23,10 @@ const Home = () => {
                 TAREA RAPIDA
             </Link>
 
+            <Link to={`/login`}>
+                LOG-IN
+            </Link>
+
         </div>
     )
 }

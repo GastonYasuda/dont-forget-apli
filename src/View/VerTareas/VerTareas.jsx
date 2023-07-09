@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { ApiContext } from '../../Context/ApiProvider';
+import { ApiContext } from '../../Context/ApiContext';
 import TaskListContainer from '../../Components/TaskListContainer/TaskListContainer';
 
 
@@ -14,25 +14,15 @@ const VerTareas = () => {
 
 
     useEffect(() => {
-        // termo()
-        // getByDate()
 
         if (user.length !== 0) {
-
             try {
-
-                setTasks(user.task);
-
-
+                setTasks(user.tasks);
             } catch (error) {
                 console.log(error);
             }
         }
-
-    }, [user])
-
-
-
+    }, [user, tasks])
 
     return (
         <div>
@@ -40,18 +30,17 @@ const VerTareas = () => {
                 <h1>HOME</h1>
             </Link>
 
-
             <h4>VerTareas</h4>
-            <h1>hola</h1>
 
             {
+                tasks !== undefined &&
                 tasks.map((tas, i) => {
                     return (
                         <div key={i}>
 
                             <h1 >{tas.fecha}</h1>
 
-                            <TaskListContainer taskList={tas} />
+                            <TaskListContainer taskList={tas.task} />
 
                         </div>
                     )

@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 const TaskListContainer = ({ taskList }) => {
 
     useEffect(() => {
-        console.log(taskList.tasks);
+        console.log(taskList);
     }, [])
 
     return (
         <div>
             {
-                taskList.tasks.map((tali, i) => {
+                taskList.map((tali, i) => {
                     return (
                         <div key={i}>
                             <p>{tali.name}</p>
