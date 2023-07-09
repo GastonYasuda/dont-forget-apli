@@ -76,32 +76,26 @@ const ApiProvider = ({ children }) => {
 
                 if (newTk !== undefined) {
                     // console.log(newTask.fecha);
-                    newTk.task.push({ name: inputValue, done: false })
-                    setNewTask(newTk)
+
+                    // newTk.task.push({ name: inputValue, done: false })
+                    //  setNewTask(newTk)
+
+                    const tasks = [...newTk.task, { name: inputValue, done: false }]
+
+                    const productRef = doc(db, "user", user.id);
+
+                    await updateDoc(productRef, {
+                        tasks: [{
+                            fecha: inputDate,
+                            task: tasks
+                        }]
+                    })
+
 
                 }
 
-
-
             }
-            if (newTask.length !== 0) {
-                console.log(newTask);//solo los task
 
-            }
-            //tengo que buscar como entro a la fecha y guardarlo ahi
-
-            const productRef = doc(db, "user", user.id);
-
-
-            // await updateDoc(productRef, newTask.task);
-
-            // for (const productCart of products) {
-            //     const productRef = doc(db, "user", productCart.id);
-
-            //     await updateDoc(productRef, {
-            //        name: inputValue, done: false
-            //     });
-            // }
 
         } catch (e) {
             console.error("Error adding document: ", e);

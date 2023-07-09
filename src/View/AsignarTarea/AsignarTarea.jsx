@@ -8,14 +8,14 @@ moment.locale('es-mx')
 
 const AsignarTarea = () => {
 
-    const [date, setDate] = useState("")
+    const [inputDate, setInputDate] = useState("")
     const [inputValue, setInputValue] = useState("")
 
 
     const { addTask } = useContext(ApiContext)
 
     const handleDateChange = (e) => {
-        setDate(e.target.value)
+        setInputDate(e.target.value)
     }
 
     const handleInputChange = (e) => {
@@ -24,11 +24,11 @@ const AsignarTarea = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(moment(date).format('l'));
+        console.log(moment(inputDate).format('l'));
         console.log(inputValue);
-        setDate('')
+        setInputDate('')
         setInputValue('')
-        addTask(moment(date).format('l'), inputValue)
+        addTask(moment(inputDate).format('l'), inputValue)
     }
 
     return (
@@ -39,7 +39,7 @@ const AsignarTarea = () => {
 
             <h4>AsignarTarea</h4>
             <form onSubmit={handleSubmit}>
-                <input type="date" onChange={handleDateChange} value={date} />
+                <input type="date" onChange={handleDateChange} value={inputDate} />
                 <input type='text' onChange={handleInputChange} value={inputValue} />
                 <button>ok</button>
             </form>
