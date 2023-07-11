@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { ApiContext } from '../../Context/ApiContext'
+import TaskList from '../TaskList/TaskList';
 
-const TaskListContainer = ({ taskList }) => {
-
-    useEffect(() => {
-        console.log(taskList);
-    }, [])
+const TaskListContainer = ({ userTasks }) => {
 
     return (
         <div>
+
             {
-                taskList.map((tali, i) => {
+                userTasks !== undefined &&
+                userTasks.map((tasks, i) => {
                     return (
                         <div key={i}>
-                            <p>{tali.name}</p>
+                            <h1>{tasks.fecha}</h1>
+                            <TaskList eachTask={tasks.task} />
                         </div>
                     )
                 })
             }
+
         </div>
     )
 }

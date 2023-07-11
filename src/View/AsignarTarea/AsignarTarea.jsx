@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import 'moment/locale/es-mx';
 import { ApiContext } from '../../Context/ApiContext';
+import TaskListContainer from '../../Components/TaskListContainer/TaskListContainer';
 
 moment.locale('es-mx')
 
@@ -11,8 +12,15 @@ const AsignarTarea = () => {
     const [inputDate, setInputDate] = useState("")
     const [inputValue, setInputValue] = useState("")
 
+    const { user, addNewTask } = useContext(ApiContext)
 
-    const { addTask } = useContext(ApiContext)
+    useEffect(() => {
+        if (user.length !== 0) {
+           // console.log("la segunda tiene q aparecer lo nuevo", user);
+            //  console.log(user.tasks);
+        }
+    }, [user])
+
 
     const handleDateChange = (e) => {
         setInputDate(e.target.value)
@@ -24,11 +32,14 @@ const AsignarTarea = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(moment(inputDate).format('l'));
-        console.log(inputValue);
+
+
+        //addNewTask('', moment(inputDate).format('l'), inputValue)
+
+        addNewTask(moment(inputDate).format('l'), inputValue)
+
         setInputDate('')
         setInputValue('')
-        addTask(moment(inputDate).format('l'), inputValue)
     }
 
     return (
@@ -43,6 +54,9 @@ const AsignarTarea = () => {
                 <input type='text' onChange={handleInputChange} value={inputValue} />
                 <button>ok</button>
             </form>
+
+            <TaskListContainer userTasks={user.tasks} />
+
         </div>
     )
 }

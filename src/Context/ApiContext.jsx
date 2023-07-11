@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { db } from '../Firebase/Config';
-import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs, addDoc, query, where, setDoc } from 'firebase/firestore';
 import moment from 'moment';
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -9,6 +9,7 @@ export const ApiContext = createContext()
 
 const ApiProvider = ({ children }) => {
     const [user, setUser] = useState([])
+
 
     useEffect(() => {
         getUser()
@@ -28,83 +29,41 @@ const ApiProvider = ({ children }) => {
             allUser.push(usuario)
         });
         setUser(allUser[0])
+        localStorage.setItem('USUARIO', JSON.stringify(allUser[0]))
     }
 
 
-    // const washingtonRef = doc(db, "cities", "DC");
+    //-------------------------------addNewTask
 
-    // // Set the "capital" field of the city 'DC'
-    // await updateDoc(washingtonRef, {
-    //   capital: true
-    // });
+    const addNewTask = (dateValue, taskValue) => {
+        let newArray = []
 
-
-
-    //-------------------------------addUser
-    // const addUser = async () => {
-
-    //     try {
-    //         const docRef = await addDoc(collection(db, "user"), {
-    //             first: "Ada",
-    //             last: "Lovelace",
-    //             born: 1815
-    //         });
-    //         console.log("Document written with ID: ", docRef.id);
-    //     } catch (e) {
-    //         console.error("Error adding document: ", e);
-    //     }
-    // }
-
-
-
-    //-------------------------------addTask
-
-    const [newTask, setNewTask] = useState([])
-    const addTask = async (inputDate, inputValue) => {
-        try {
-
-
-            if (user !== undefined) {
-
-                const newTk = user.tasks.find(obj =>
-                    obj.fecha === inputDate
-
-                )
-
-                console.log(newTk); //undefined
-                // console.log(newTk.task);
-
-                if (newTk !== undefined) {
-                    // console.log(newTask.fecha);
-
-                    // newTk.task.push({ name: inputValue, done: false })
-                    //  setNewTask(newTk)
-
-                    const tasks = [...newTk.task, { name: inputValue, done: false }]
-
-                    const productRef = doc(db, "user", user.id);
-
-                    await updateDoc(productRef, {
-                        tasks: [{
-                            fecha: inputDate,
-                            task: tasks
-                        }]
-                    })
-
-
-                }
-
-            }
-
-
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        const newTask = {
+            name: taskValue,
+            done: false
         }
+
+        newArray = user.tasks.filter(obj => obj.fecha === dateValue)
+        newArray[0].task.push(newTask)
+
+        setUser({ ...user, "tasks": user.tasks })
+        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
+
+        action(user.id, "", user.tasks)
     }
+
+    const action = async (userId, typeOf, array) => {
+        const userRef = doc(db, 'user', userId)
+
+        await setDoc(userRef, { "tasks": array }, { merge: true })
+    }
+
+
+
 
 
     return (
-        <ApiContext.Provider value={{ user, addTask }}>
+        <ApiContext.Provider value={{ user, setUser, addNewTask }}>
             {children}
         </ApiContext.Provider>
     )
