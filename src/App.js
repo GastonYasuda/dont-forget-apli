@@ -6,6 +6,9 @@ import VerTareas from './View/VerTareas/VerTareas';
 import TareaRapida from './View/TareaRapida/TareaRapida';
 import Login from './View/LogIn/Login';
 import ApiProvider from './Context/ApiContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function App() {
   return (

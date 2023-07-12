@@ -36,25 +36,44 @@ const ApiProvider = ({ children }) => {
     //-------------------------------addNewTask
 
     const addNewTask = (dateValue, taskValue) => {
-        let newArray = []
 
         const newTask = {
             name: taskValue,
             done: false
         }
 
-        newArray = user.tasks.filter(obj => obj.fecha === dateValue)
-        newArray[0].task.push(newTask)
+        const newDateTask = {
+            fecha: dateValue,
+            task: [newTask]
+        }
+
+        const newArray = user.tasks.filter(obj => obj.fecha === dateValue)
+
+        if (newArray.length !== 0) {
+            newArray[0].task.push(newTask)
+
+        } else {
+            user.tasks.push(newDateTask)
+
+        }
 
         setUser({ ...user, "tasks": user.tasks })
         localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
-
-        action(user.id, "", user.tasks)
+        addTask(user.id, "", user.tasks)
     }
 
-    const action = async (userId, typeOf, array) => {
-        const userRef = doc(db, 'user', userId)
+    //-------------------------------addTask
 
+    const addTask = async (userId, typeOf, array) => {
+        const userRef = doc(db, 'user', userId)
+        await setDoc(userRef, { "tasks": array }, { merge: true })
+    }
+
+
+    //-------------------------------eraseTask
+
+    const eraseTask = async (userId, typeOf, array) => {
+        const userRef = doc(db, 'user', userId)
         await setDoc(userRef, { "tasks": array }, { merge: true })
     }
 
@@ -63,7 +82,7 @@ const ApiProvider = ({ children }) => {
 
 
     return (
-        <ApiContext.Provider value={{ user, setUser, addNewTask }}>
+        <ApiContext.Provider value={{ user, setUser, addNewTask, addTask }}>
             {children}
         </ApiContext.Provider>
     )
