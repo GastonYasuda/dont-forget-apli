@@ -16,7 +16,7 @@ const TaskList = ({ eachTask }) => {
 
 
     const checkToggle = (i) => {
-        eachTask[i].done = !eachTask[i].done
+        eachTask.task[i].done = !eachTask.task[i].done
 
 
         setUser({ ...user, "tasks": user.tasks })
@@ -25,28 +25,38 @@ const TaskList = ({ eachTask }) => {
     }
 
 
+
+
     const clearTask = (i) => {
 
-        const newTask = [...user.tasks]
+        for (const key in user.tasks) {
 
-        newTask.splice(i, 1)
+            let newTask = user.tasks
 
-        console.log(newTask);
+            if (newTask[key].fecha === eachTask.fecha) {
+                newTask[key].task.splice(i, 1)
+                console.log(newTask);
 
-        //  localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
+                if (Object.keys(newTask[key].task).length === 0) {
+                    newTask.splice([key], 1)
+                }
+            }
+        }
 
+
+        setUser({ ...user, "tasks": user.tasks })
+        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
+        addTask(user.id, "", user.tasks)
     }
 
 
     return (
         <div>
             {
-                eachTask.map((task, i) => {
+                eachTask.task.map((task, i) => {
                     return (
-                        <div key={i}>
-                            <Form>
-                                {/* <Form.Check name={task.name} onChange={() => { checkToggle(i) }} /> */}
-
+                        <div key={i} >
+                            <Form style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', padding: '5px' }}>
 
                                 <Button onClick={() => { checkToggle(i) }}>
                                     {
