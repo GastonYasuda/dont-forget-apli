@@ -14,15 +14,12 @@ const AsignarTarea = () => {
 
     const { user, addNewTask } = useContext(ApiContext)
 
-    useEffect(() => {
-        if (user.length !== 0) {
-            // console.log("la segunda tiene q aparecer lo nuevo", user);
-            //  console.log(user.tasks);
-        }
-    }, [user])
-
-
+   
     const handleDateChange = (e) => {
+        console.log(e.target.value);
+        console.log(typeof (e.target.value));
+
+
         setInputDate(e.target.value)
     }
 

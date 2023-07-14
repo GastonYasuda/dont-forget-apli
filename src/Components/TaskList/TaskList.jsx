@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { ApiContext } from '../../Context/ApiContext';
@@ -10,21 +10,16 @@ import { ImCheckboxUnchecked } from 'react-icons/im';
 
 const TaskList = ({ eachTask }) => {
 
-
     const { user, setUser, addTask } = useContext(ApiContext)
-
 
 
     const checkToggle = (i) => {
         eachTask.task[i].done = !eachTask.task[i].done
 
-
         setUser({ ...user, "tasks": user.tasks })
         localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
         addTask(user.id, "", user.tasks)
     }
-
-
 
 
     const clearTask = (i) => {
@@ -35,8 +30,7 @@ const TaskList = ({ eachTask }) => {
 
             if (newTask[key].fecha === eachTask.fecha) {
                 newTask[key].task.splice(i, 1)
-                console.log(newTask);
-
+               
                 if (Object.keys(newTask[key].task).length === 0) {
                     newTask.splice([key], 1)
                 }

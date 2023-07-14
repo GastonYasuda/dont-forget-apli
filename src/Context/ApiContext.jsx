@@ -12,12 +12,14 @@ const ApiProvider = ({ children }) => {
 
 
     useEffect(() => {
-        getUser()
-    }, [])
+        getUsers()
+    }, [user])
 
 
-    //-------------------------------getUser
-    const getUser = async () => {
+    //-------------------------------getUsers
+
+    const [users, setUsers] = useState([])
+    const getUsers = async () => {
         const allUser = [];
         const querySnapshot = await getDocs(collection(db, "user"));
         querySnapshot.forEach((doc) => {
@@ -28,10 +30,19 @@ const ApiProvider = ({ children }) => {
             }
             allUser.push(usuario)
         });
-        setUser(allUser[0])
-        localStorage.setItem('USUARIO', JSON.stringify(allUser[0]))
+        setUsers(allUser)
     }
 
+    //-------------------------------checkUser
+
+    const checkUser = (mail, pass) => {
+        for (const key in users) {
+            if (users[key].mail === mail & users[key].password === pass) {
+                setUser(users[key])
+                localStorage.setItem('USUARIO', JSON.stringify(users[key]))
+            }
+        }
+    }
 
     //-------------------------------addNewTask
 
@@ -78,11 +89,30 @@ const ApiProvider = ({ children }) => {
     }
 
 
+    //-------------------------------emailJS
+    // const emailJS = async (data) => {
+    //     // API NECESARIA PARA ENVIAR UN CORREO ELECTRONICO A CIERTO MAIL.
+
+    //     // ARRAY NECESARIO DE "data"
+    //     // const array= {
+    //     //     nombre:"",
+    //     //     contrasena:"",
+    //     //     toMail:""
+    //     // }
+    //     emailjs.send('service_rkbguuj', 'template_7y8c547', data, "EtNdfQu1yjfSB4fDT")
+    //         .then(function (response) {
+    //             console.log(response)
+    //             return (true)
+    //         }, function (error) {
+    //             console.log(error)
+    //             return (false)
+    //         });
+    // }
 
 
 
     return (
-        <ApiContext.Provider value={{ user, setUser, addNewTask, addTask }}>
+        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask }}>
             {children}
         </ApiContext.Provider>
     )
