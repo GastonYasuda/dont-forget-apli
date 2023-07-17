@@ -1,74 +1,98 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { ApiContext } from '../../Context/ApiContext';
+import LoginNormal from '../../Components/LoginNormal/LoginNormal';
+import LoginRegist from '../LoginRegist/LoginRegist';
+import RecoverPass from '../../Components/RecoverPass/RecoverPass';
+import Home from '../Home/Home';
 
 
 const Login = () => {
 
-    const { checkUser } = useContext(ApiContext)
+
+    const { checkUser,  someUser } = useContext(ApiContext)
 
     const [loginValues, setLoginValues] = useState('')
     const [passValue, setPassValue] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [continueOmit, setContinueOmit] = useState(false)
+
+    //continueOmit seria con el boton omit si esta registrado o se registra
+
+
+    const form = useRef();
 
     const {
         register,
         handleSubmit,
         getValues,
         reset,
+
         formState: { errors }
     } = useForm();
 
 
     useEffect(() => {
+        if (someUser) {
+            setContinueOmit(true)
 
-        if (loginValues.length !== 0) {
-            console.log(loginValues);
-            console.log(passValue);
-            checkUser(loginValues, passValue)
-            // funcion que me diga si existe el usuario
+        } else {
+            if (loginValues.length !== 0) {
+                checkUser(loginValues, passValue)
+            }
         }
-    }, [loginValues, passValue])
+    }, [loginValues, passValue, someUser])
 
 
 
-
-    const onSubmit = (data) => {
-
+    const onSubmit = () => {
         setLoginValues(getValues("LoginName"))
         setPassValue(getValues("password"))
         reset()
-
     };
 
+
+
+
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <h4>Iniciar sesión</h4>
+        <>
+
+            {
+                continueOmit ?
+                    <Home setContinueOmit={setContinueOmit}/>
+                    :
+                    <form onSubmit={handleSubmit(onSubmit)} ref={form} >
+                        <h4>Iniciar sesión</h4>
+
+                        <LoginNormal setPassValue={setPassValue} setLoginValues={setLoginValues} register={register} errors={errors} />
 
 
-                <input type='email' placeholder='Mail'  {...register("LoginName", { required: true })} />
-                {errors?.LoginName?.type === "required" && <p>Campo incompleto.</p>}
+                        <div>
+                            <p>¿No tienes cuenta?</p>
+                            <button onClick={() => { setShowModal(true) }}>REGISTRATE</button>
+                            <LoginRegist showModal={showModal} setShowModal={setShowModal} />
+                        </div>
 
+                        <div>
+                            <RecoverPass />
+                        </div>
 
-                <input type='password' placeholder='Contraseña' {...register("password", { required: true })} />
-                {/* errors will return when field validation fails  */}
-                {errors?.password?.type === "required" && <p>Campo incompleto.</p>}
+                        <button type='submit'>INGRESAR</button>
 
+                        <button>
+                            google
+                        </button>
 
-                <p>¿No tienes cuenta?</p>
+                        <button onClick={() => { setContinueOmit(true) }}>
+                            Continue without login
+                        </button>
 
-                <button>REGISTRATE</button>
-                <button>recuperar contraseña</button>
+                    </form >
+            }
 
-                <button type='submit'>INGRESAR</button>
-
-                <button>
-                    google
-                </button>
-
-            </form>
-        </div >
+        </>
     )
 }
+
 
 export default Login

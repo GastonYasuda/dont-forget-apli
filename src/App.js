@@ -7,6 +7,7 @@ import TareaRapida from './View/TareaRapida/TareaRapida';
 import Login from './View/LogIn/Login';
 import ApiProvider from './Context/ApiContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginRegist from './View/LoginRegist/LoginRegist';
 
 
 
@@ -16,7 +17,6 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {/* <Route path='/' element={<Home />} /> */}
 
           <Route path='/' element={<Login />} />
 
@@ -24,7 +24,6 @@ function App() {
           <Route path='/asignar-tarea' element={<AsignarTarea />} />
           <Route path='/ver-tarea' element={<VerTareas />} />
           <Route path='/tarea-rapida' element={<TareaRapida />} />
-          <Route path='/login' element={<Login />} />
 
           <Route path='*' element={"pagina no encontrada"} />
 

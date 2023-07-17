@@ -1,8 +1,16 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom'
 
-const Home = () => {
 
+const Home = ({ setContinueOmit }) => {
+
+
+
+    const logout = () => {
+        localStorage.removeItem("USUARIO")
+        setContinueOmit(false)
+    }
 
     return (
         <div className='centrar'>
@@ -23,9 +31,10 @@ const Home = () => {
                 TAREA RAPIDA
             </Link>
 
-            <Link to={`/login`}>
-                LOG-IN
-            </Link>
+            <Button onClick={logout} >
+                log-out
+            </Button>
+
 
         </div>
     )
