@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom'
+import { ApiContext } from '../../Context/ApiContext';
 
 
-const Home = ({ setContinueOmit }) => {
+const Home = ({ setContinueOmit}) => {
 
-
+    const { setUser } = useContext(ApiContext)
 
     const logout = () => {
         localStorage.removeItem("USUARIO")
+        setUser('')
+ 
         setContinueOmit(false)
     }
 

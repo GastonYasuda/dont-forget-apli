@@ -1,63 +1,62 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useState } from 'react'
 import { db } from '../Firebase/Config';
 import { collection, getDocs, addDoc, query, where, setDoc } from 'firebase/firestore';
-import moment from 'moment';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2'
 
 
 export const ApiContext = createContext()
 
 const ApiProvider = ({ children }) => {
     const [user, setUser] = useState([])
-
-
-    useEffect(() => {
-        getUsers()
-        someLog()
-    }, [user])
-
-
     //-------------------------------getUsers
 
-    const [users, setUsers] = useState([])
-    const getUsers = async () => {
-        const allUser = [];
-        const querySnapshot = await getDocs(collection(db, "user"));
-        querySnapshot.forEach((doc) => {
+    // const [users, setUsers] = useState([])
+    // const getUsers = async () => {
+    //     const allUser = [];
+    //     const querySnapshot = await getDocs(collection(db, "user"));
+    //     querySnapshot.forEach((doc) => {
 
-            const usuario = {
-                id: doc.id,
-                ...doc.data()
-            }
-            allUser.push(usuario)
-        });
-        setUsers(allUser)
-    }
-
-
-    //-------------------------------someLog
-    const [someUser, setSomeUser] = useState(false)
-    const someLog = () => {
-        //BUSCO SI EL LOGALHOST TIENE ALGO
-        const come = JSON.parse(localStorage.getItem('USUARIO'))
-
-        if (come) {
-            setSomeUser(true);
-        } 
-    }
-
+    //         const usuario = {
+    //             id: doc.id,
+    //             ...doc.data()
+    //         }
+    //         allUser.push(usuario)
+    //     });
+    //     setUsers(allUser)
+    // }
 
     //-------------------------------checkUser
 
-    const checkUser = (mail, pass) => {
-        for (const key in users) {
-            if (users[key].loginMail === mail & users[key].password === pass) {
-                setUser(users[key])
-                localStorage.setItem('USUARIO', JSON.stringify(users[key]))
-                // console.log(`BIENVENIDO ${users[key].nickname}`);
-            }
+    const [next, setNext] = useState(false)
+
+    const checkUser = async (mail, pass) => {
+        const cole = collection(db, "user")
+
+        const q = query(cole, where("loginMail", "==", mail), where("password", "==", pass));
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            const usuarioConId = ({ id: doc.id, ...doc.data() });
+
+            setUser(usuarioConId)
+            localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
+            setNext(true)
+        });
+    }
+
+    //-------------------------------localUser
+    const [localUser, setLocalUser] = useState(false)
+    const searchLocalUser = () => {
+
+        if (localStorage.getItem('USUARIO') !== null) {
+            setLocalUser(true)
+            console.log("ver");
+        } else {
+            console.log("nooooooooo");
         }
+
     }
 
     //-------------------------------addUser
@@ -67,7 +66,7 @@ const ApiProvider = ({ children }) => {
         const usuario = await addDoc(collection(db, "user"), newUser);
         const usuarioConId = ({ id: usuario.id, ...newUser });
 
-        localStorage.setItem(`USUARIO LOGUEADO`, JSON.stringify(usuarioConId))
+        localStorage.setItem(`USUARIO`, JSON.stringify(usuarioConId))
 
     }
 
@@ -153,7 +152,7 @@ const ApiProvider = ({ children }) => {
 
 
     return (
-        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addUser, searchPass, userPass, someUser }}>
+        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addUser, searchPass, userPass, searchLocalUser, localUser, next }}>
             {children}
         </ApiContext.Provider>
     )

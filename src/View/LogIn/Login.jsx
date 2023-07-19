@@ -5,17 +5,17 @@ import LoginNormal from '../../Components/LoginNormal/LoginNormal';
 import LoginRegist from '../LoginRegist/LoginRegist';
 import RecoverPass from '../../Components/RecoverPass/RecoverPass';
 import Home from '../Home/Home';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
 
+    const { checkUser, user, searchLocalUser, localUser, next } = useContext(ApiContext)
 
-    const { checkUser,  someUser } = useContext(ApiContext)
-
-    const [loginValues, setLoginValues] = useState('')
-    const [passValue, setPassValue] = useState('')
     const [showModal, setShowModal] = useState(false)
+
     const [continueOmit, setContinueOmit] = useState(false)
+
 
     //continueOmit seria con el boton omit si esta registrado o se registra
 
@@ -31,23 +31,27 @@ const Login = () => {
         formState: { errors }
     } = useForm();
 
-
     useEffect(() => {
-        if (someUser) {
-            setContinueOmit(true)
-
-        } else {
-            if (loginValues.length !== 0) {
-                checkUser(loginValues, passValue)
-            }
+        if (user.id !== undefined) {
+            getLocal()
         }
-    }, [loginValues, passValue, someUser])
 
+    }, [user])
+
+
+
+    const getLocal = () => {
+        const item = JSON.parse(localStorage.getItem('USUARIO'))
+        if (item.lenght !== 0) {
+            setContinueOmit(true)
+        }
+    }
 
 
     const onSubmit = () => {
-        setLoginValues(getValues("LoginName"))
-        setPassValue(getValues("password"))
+
+        checkUser(getValues("LoginName"), getValues("password"))
+
         reset()
     };
 
@@ -59,18 +63,19 @@ const Login = () => {
 
             {
                 continueOmit ?
-                    <Home setContinueOmit={setContinueOmit}/>
+                    <Home setContinueOmit={setContinueOmit} />
                     :
                     <form onSubmit={handleSubmit(onSubmit)} ref={form} >
                         <h4>Iniciar sesión</h4>
 
-                        <LoginNormal setPassValue={setPassValue} setLoginValues={setLoginValues} register={register} errors={errors} />
+                        <LoginNormal register={register} errors={errors} />
 
 
                         <div>
                             <p>¿No tienes cuenta?</p>
                             <button onClick={() => { setShowModal(true) }}>REGISTRATE</button>
                             <LoginRegist showModal={showModal} setShowModal={setShowModal} />
+                            {/* DESPUES DE REGISTRAR SETCONTINUEOMIT TIENE QUE SER TRUE */}
                         </div>
 
                         <div>

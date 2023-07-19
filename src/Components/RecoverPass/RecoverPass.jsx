@@ -26,7 +26,11 @@ const RecoverPass = () => {
                 mailto: mailValue
             }
             console.log(array);
+            
             // emailJS(array)
+            //COMENTADO ASI NO BUSCA TODO EL TIEMPO
+
+            setShowRecover(false)
 
         } catch (error) {
             console.log(error);
@@ -46,7 +50,7 @@ const RecoverPass = () => {
                         keyboard={false}
                     >
                         <Modal.Header>
-                            <Modal.Title>Register form</Modal.Title>
+                            <Modal.Title>Recover password</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
