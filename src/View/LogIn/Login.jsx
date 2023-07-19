@@ -6,15 +6,18 @@ import LoginRegist from '../LoginRegist/LoginRegist';
 import RecoverPass from '../../Components/RecoverPass/RecoverPass';
 import Home from '../Home/Home';
 import Swal from 'sweetalert2';
+import LoginGoogle from '../../Components/LoginGoogle/LoginGoogle';
 
 
 const Login = () => {
 
-    const { checkUser, user, searchLocalUser, localUser, next } = useContext(ApiContext)
+    const { checkUser, user } = useContext(ApiContext)
 
     const [showModal, setShowModal] = useState(false)
-
     const [continueOmit, setContinueOmit] = useState(false)
+
+    const [googleUser, setGoogleUser] = useState([])
+
 
 
     //continueOmit seria con el boton omit si esta registrado o se registra
@@ -31,18 +34,21 @@ const Login = () => {
         formState: { errors }
     } = useForm();
 
+
     useEffect(() => {
-        if (user.id !== undefined) {
-            getLocal()
+        getLocal()
+
+        if (googleUser.length !== 0) {
+            console.log(googleUser);
         }
 
-    }, [user])
+    }, [user, googleUser])
 
 
 
     const getLocal = () => {
         const item = JSON.parse(localStorage.getItem('USUARIO'))
-        if (item.lenght !== 0) {
+        if (item !== null) {
             setContinueOmit(true)
         }
     }
@@ -84,9 +90,9 @@ const Login = () => {
 
                         <button type='submit'>INGRESAR</button>
 
-                        <button>
-                            google
-                        </button>
+                        <div>
+                            <LoginGoogle setGoogleUser={setGoogleUser} />
+                        </div>
 
                         <button onClick={() => { setContinueOmit(true) }}>
                             Continue without login

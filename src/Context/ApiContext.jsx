@@ -10,26 +10,9 @@ export const ApiContext = createContext()
 
 const ApiProvider = ({ children }) => {
     const [user, setUser] = useState([])
-    //-------------------------------getUsers
-
-    // const [users, setUsers] = useState([])
-    // const getUsers = async () => {
-    //     const allUser = [];
-    //     const querySnapshot = await getDocs(collection(db, "user"));
-    //     querySnapshot.forEach((doc) => {
-
-    //         const usuario = {
-    //             id: doc.id,
-    //             ...doc.data()
-    //         }
-    //         allUser.push(usuario)
-    //     });
-    //     setUsers(allUser)
-    // }
 
     //-------------------------------checkUser
 
-    const [next, setNext] = useState(false)
 
     const checkUser = async (mail, pass) => {
         const cole = collection(db, "user")
@@ -42,21 +25,7 @@ const ApiProvider = ({ children }) => {
 
             setUser(usuarioConId)
             localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
-            setNext(true)
         });
-    }
-
-    //-------------------------------localUser
-    const [localUser, setLocalUser] = useState(false)
-    const searchLocalUser = () => {
-
-        if (localStorage.getItem('USUARIO') !== null) {
-            setLocalUser(true)
-            console.log("ver");
-        } else {
-            console.log("nooooooooo");
-        }
-
     }
 
     //-------------------------------addUser
@@ -152,7 +121,7 @@ const ApiProvider = ({ children }) => {
 
 
     return (
-        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addUser, searchPass, userPass, searchLocalUser, localUser, next }}>
+        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addUser, searchPass, userPass }}>
             {children}
         </ApiContext.Provider>
     )
