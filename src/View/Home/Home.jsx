@@ -4,16 +4,11 @@ import { Link } from 'react-router-dom'
 import { ApiContext } from '../../Context/ApiContext';
 
 
-const Home = ({ setContinueOmit}) => {
+const Home = () => {
 
-    const { setUser } = useContext(ApiContext)
+    const {  logOut } = useContext(ApiContext)
 
-    const logout = () => {
-        localStorage.removeItem("USUARIO")
-        setUser('')
- 
-        setContinueOmit(false)
-    }
+
 
     return (
         <div className='centrar'>
@@ -34,7 +29,7 @@ const Home = ({ setContinueOmit}) => {
                 TAREA RAPIDA
             </Link>
 
-            <Button onClick={logout} >
+            <Button onClick={logOut} >
                 log-out
             </Button>
 

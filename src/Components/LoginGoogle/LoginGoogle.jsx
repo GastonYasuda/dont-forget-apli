@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { gapi } from 'gapi-script';
 import GoogleLogin from 'react-google-login';
+import { ApiContext } from '../../Context/ApiContext';
 
 
-const LoginGoogle = ({ setGoogleUser }) => {
+const LoginGoogle = () => {
 
+
+    const { checkUser, createGoogleUser, addNewUser, user } = useContext(ApiContext)
+    const [googleUser, setGoogleUser] = useState([])
 
     const clientId = "161183558472-blt42q3k8ld75odcqb44v8g99gbg5mr9.apps.googleusercontent.com"
 
     useEffect(() => {
-
         try {
 
             const start = () => {
@@ -23,11 +26,28 @@ const LoginGoogle = ({ setGoogleUser }) => {
             console.log(error)
         }
     }, []);
+    useEffect(() => {
+        if (createGoogleUser) {
+            // console.log("hola");
+            if (googleUser.length !== 0) {
+                // console.log(googleUser.givenName);
+                // console.log("llego");
+                addNewUser(googleUser.givenName, googleUser.email, googleUser.googleId)
+            }
+
+
+        }
+    }, [googleUser, createGoogleUser])
+
 
 
     const onSuccess = (response) => {
-        console.log(response);
+        const googleU = response.profileObj
+        // console.log(googleU);
+
         setGoogleUser(response.profileObj)
+        checkUser(googleU.email, googleU.googleId)
+
     }
 
     const onFailure = (error) => {

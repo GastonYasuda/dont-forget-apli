@@ -11,12 +11,10 @@ import LoginGoogle from '../../Components/LoginGoogle/LoginGoogle';
 
 const Login = () => {
 
-    const { checkUser, user } = useContext(ApiContext)
+    const { checkUser, user, addNewUser, continueOmit, setContinueOmit, getLocal } = useContext(ApiContext)
 
     const [showModal, setShowModal] = useState(false)
-    const [continueOmit, setContinueOmit] = useState(false)
 
-    const [googleUser, setGoogleUser] = useState([])
 
 
 
@@ -38,20 +36,9 @@ const Login = () => {
     useEffect(() => {
         getLocal()
 
-        if (googleUser.length !== 0) {
-            console.log(googleUser);
-        }
 
-    }, [user, googleUser])
+    }, [user])
 
-
-
-    const getLocal = () => {
-        const item = JSON.parse(localStorage.getItem('USUARIO'))
-        if (item !== null) {
-            setContinueOmit(true)
-        }
-    }
 
 
     const onSubmit = () => {
@@ -69,7 +56,7 @@ const Login = () => {
 
             {
                 continueOmit ?
-                    <Home setContinueOmit={setContinueOmit} />
+                    <Home />
                     :
                     <form onSubmit={handleSubmit(onSubmit)} ref={form} >
                         <h4>Iniciar sesión</h4>
@@ -91,7 +78,7 @@ const Login = () => {
                         <button type='submit'>INGRESAR</button>
 
                         <div>
-                            <LoginGoogle setGoogleUser={setGoogleUser} />
+                            <LoginGoogle />
                         </div>
 
                         <button onClick={() => { setContinueOmit(true) }}>

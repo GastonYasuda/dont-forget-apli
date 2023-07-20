@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ApiContext } from '../../Context/ApiContext';
@@ -8,33 +8,42 @@ const RecoverPass = () => {
     const { emailJS, searchPass, userPass } = useContext(ApiContext)
 
     const [showRecover, setShowRecover] = useState(false)
+    const [mailValue, setMailValue] = useState('')
 
     const user_email = useRef()
+
+    useEffect(() => {
+        if (userPass.length !== 0) {
+
+            try {
+
+                const array = {
+                    user_name: userPass.nickname,
+                    message: userPass.password,
+                    mailto: mailValue
+                }
+                console.log(array);
+
+                emailJS(array)
+                //COMENTADO ASI NO BUSCA TODO EL TIEMPO
+
+                setShowRecover(false)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+    }, [userPass])
 
 
 
     const onSubmit = () => {
-        const mailValue = (user_email.current.value)
+        const getMailValue = (user_email.current.value)
+        setMailValue(getMailValue)
+        searchPass(getMailValue)
 
-        searchPass(mailValue)
 
-        try {
-
-            const array = {
-                user_name: userPass.nickname,
-                message: userPass.password,
-                mailto: mailValue
-            }
-            console.log(array);
-            
-            // emailJS(array)
-            //COMENTADO ASI NO BUSCA TODO EL TIEMPO
-
-            setShowRecover(false)
-
-        } catch (error) {
-            console.log(error);
-        }
 
     };
 

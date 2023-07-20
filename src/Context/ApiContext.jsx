@@ -4,15 +4,19 @@ import { collection, getDocs, addDoc, query, where, setDoc } from 'firebase/fire
 import { doc } from "firebase/firestore";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2'
+import GenerateNewUser from '../Service/GenerateNewUser';
 
 
 export const ApiContext = createContext()
 
 const ApiProvider = ({ children }) => {
+
+    const [continueOmit, setContinueOmit] = useState(false)
+
     const [user, setUser] = useState([])
 
     //-------------------------------checkUser
-
+    const [createGoogleUser, setCreateGoogleUser] = useState(false)
 
     const checkUser = async (mail, pass) => {
         const cole = collection(db, "user")
@@ -20,31 +24,73 @@ const ApiProvider = ({ children }) => {
         const q = query(cole, where("loginMail", "==", mail), where("password", "==", pass));
 
         const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            const usuarioConId = ({ id: doc.id, ...doc.data() });
 
-            setUser(usuarioConId)
-            localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
-        });
+        console.log(typeof (querySnapshot));
+        console.log(querySnapshot.empty);//true no tiene nada
+
+        if (querySnapshot.empty === false) {
+
+            querySnapshot.forEach((doc) => {
+                const usuarioConId = ({ id: doc.id, ...doc.data() });
+
+                setUser(usuarioConId)
+                localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
+                setContinueOmit(true)
+            });
+        } else {
+            console.log("no existe ");
+            setCreateGoogleUser(true)
+        }
     }
 
-    //-------------------------------addUser
+    //-------------------------------addNewUser
 
-    const addUser = async (newUser) => {
+    const addNewUser = async (nicknameValue, loginMailValue, passwordValue) => {
         // AGREGAR UN NUEVO USUARIO A LA COLECCION "usuarios" CON SU CORRESPONDIENTE ARRAY.
-        const usuario = await addDoc(collection(db, "user"), newUser);
-        const usuarioConId = ({ id: usuario.id, ...newUser });
 
-        localStorage.setItem(`USUARIO`, JSON.stringify(usuarioConId))
+        try {
+            const newUserSet = GenerateNewUser({
+                nickname: nicknameValue,
+                loginMail: loginMailValue,
+                password: passwordValue
+            })
 
+            const usuario = await addDoc(collection(db, "user"), newUserSet);
+            const usuarioConId = ({ id: usuario.id, ...newUserSet });
+
+            setUser(usuarioConId)
+            localStorage.setItem(`USUARIO`, JSON.stringify(usuarioConId))
+            setContinueOmit(true)
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    //-------------------------------getLocal
+
+    const getLocal = () => {
+        const item = JSON.parse(localStorage.getItem('USUARIO'))
+        if (item !== null) {
+            setContinueOmit(true)
+            return true
+        }
+    }
+
+    //-------------------------------logOut
+
+    const logOut = () => {
+        localStorage.removeItem("USUARIO")
+        setUser('')
+
+        setContinueOmit(false)
     }
 
 
     //-------------------------------searchPass
     const [userPass, setUserPass] = useState([])
     const searchPass = async (mailValue) => {
-        console.log(mailValue);
-
         const cole = collection(db, "user")
 
         const tieneRegistro = await getDocs(query(cole, where("loginMail", "==", mailValue)))
@@ -69,6 +115,7 @@ const ApiProvider = ({ children }) => {
             task: [newTask]
         }
 
+        //user me dice undefined
         const newArray = user.tasks.filter(obj => obj.fecha === dateValue)
 
         if (newArray.length !== 0) {
@@ -121,7 +168,7 @@ const ApiProvider = ({ children }) => {
 
 
     return (
-        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addUser, searchPass, userPass }}>
+        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addNewUser, searchPass, userPass, continueOmit, setContinueOmit, getLocal, logOut, createGoogleUser }}>
             {children}
         </ApiContext.Provider>
     )

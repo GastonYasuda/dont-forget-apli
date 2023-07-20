@@ -8,7 +8,7 @@ import { ApiContext } from '../../Context/ApiContext';
 
 const LoginRegist = ({ showModal, setShowModal }) => {
 
-    const { addUser } = useContext(ApiContext)
+    const { addNewUser } = useContext(ApiContext)
 
     const {
         register,
@@ -22,20 +22,8 @@ const LoginRegist = ({ showModal, setShowModal }) => {
 
     const onSubmit = () => {
 
-        try {
-            const newUserSet = GenerateNewUser({
-                nickname: getValues("nickName"),
-                loginMail: getValues("loginMail"),
-                password: getValues("password")
-            })
-
-            addUser(newUserSet);
-
-
-        } catch (error) {
-            console.log(error);
-        }
-
+        addNewUser(getValues("nickName"), getValues("loginMail"), getValues("password"))
+        setShowModal(false)
     };
 
 
