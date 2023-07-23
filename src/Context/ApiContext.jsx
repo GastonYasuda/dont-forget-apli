@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import { db } from '../Firebase/Config';
 import { collection, getDocs, addDoc, query, where, setDoc } from 'firebase/firestore';
 import { doc } from "firebase/firestore";
@@ -14,6 +14,11 @@ const ApiProvider = ({ children }) => {
     const [continueOmit, setContinueOmit] = useState(false)
 
     const [user, setUser] = useState([])
+
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('USUARIO')))
+    }, [])
+
 
     //-------------------------------checkUser
     const [createGoogleUser, setCreateGoogleUser] = useState(false)
@@ -32,7 +37,7 @@ const ApiProvider = ({ children }) => {
 
                 setUser(usuarioConId)
                 localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
-                setContinueOmit(true)
+                //setContinueOmit(true)
             });
 
         } else {
@@ -70,16 +75,6 @@ const ApiProvider = ({ children }) => {
 
     }
 
-    //-------------------------------getLocal
-
-    const getLocal = () => {
-        const item = JSON.parse(localStorage.getItem('USUARIO'))
-        if (item !== null) {
-            setContinueOmit(true)
-            return true
-        }
-    }
-
     //-------------------------------logOut
 
     const logOut = () => {
@@ -101,7 +96,6 @@ const ApiProvider = ({ children }) => {
         });
 
         if (tieneRegistro.docs.length !== 0) {
-            console.log("chan");
             setUserPass(isLogged[0]);
 
         } else {
@@ -111,13 +105,14 @@ const ApiProvider = ({ children }) => {
                 'error'
             )
         }
-
     }
 
 
     //-------------------------------addNewTask
 
     const addNewTask = (dateValue, taskValue) => {
+
+        const item = JSON.parse(localStorage.getItem('USUARIO'))
 
         const newTask = {
             name: taskValue,
@@ -130,37 +125,27 @@ const ApiProvider = ({ children }) => {
         }
 
         //user me dice undefined
-        const newArray = user.tasks.filter(obj => obj.fecha === dateValue)
+        const newArray = item.tasks.filter(obj => obj.fecha === dateValue)
 
         if (newArray.length !== 0) {
             newArray[0].task.push(newTask)
 
         } else {
-            user.tasks.push(newDateTask)
-
+            item.tasks.push(newDateTask)
         }
 
-        setUser({ ...user, "tasks": user.tasks })
-        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
-        addTask(user.id, "", user.tasks)
+        setUser({ ...item, "tasks": item.tasks })//state
+        localStorage.setItem('USUARIO', JSON.stringify({ ...item, "tasks": item.tasks }))//local
+        addTask(item.id, "", item.tasks) //db
     }
 
-    //-------------------------------addTask
+    //-------------------------------addTask me guarda en db
 
     const addTask = async (userId, typeOf, array) => {
         const userRef = doc(db, 'user', userId)
         await setDoc(userRef, { "tasks": array }, { merge: true })
+
     }
-
-
-    //-------------------------------eraseTask
-
-    const eraseTask = async (userId, typeOf, array) => {
-        const userRef = doc(db, 'user', userId)
-        await setDoc(userRef, { "tasks": array }, { merge: true })
-    }
-
-
 
 
 
@@ -182,7 +167,7 @@ const ApiProvider = ({ children }) => {
 
 
     return (
-        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addNewUser, searchPass, userPass, continueOmit, setContinueOmit, getLocal, logOut, createGoogleUser }}>
+        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addNewUser, searchPass, userPass, continueOmit, setContinueOmit, logOut, createGoogleUser }}>
             {children}
         </ApiContext.Provider>
     )

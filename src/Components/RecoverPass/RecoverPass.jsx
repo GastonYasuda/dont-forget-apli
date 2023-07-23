@@ -3,6 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ApiContext } from '../../Context/ApiContext';
 import Swal from 'sweetalert2'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+
 
 const RecoverPass = () => {
 
@@ -15,7 +18,6 @@ const RecoverPass = () => {
 
     useEffect(() => {
         if (userPass.length !== 0) {
-
             try {
                 const array = {
                     user_name: userPass.nickname,
@@ -23,7 +25,7 @@ const RecoverPass = () => {
                     mailto: mailValue
                 }
 
-                // emailJS(array)
+               // emailJS(array)
                 Swal.fire({
                     icon: 'success',
                     title: 'Your password has been sent!',
@@ -34,13 +36,9 @@ const RecoverPass = () => {
                 setShowRecover(false)
 
             } catch (error) {
-
                 console.log(error);
-
-
             }
         }
-
     }, [userPass])
 
 
@@ -64,7 +62,6 @@ const RecoverPass = () => {
     return (
         <>
             <button onClick={() => { setShowRecover(true) }}>Recover password</button >
-
             {
                 showRecover ?
                     <Modal className='modal-content-mg-top '
@@ -76,10 +73,15 @@ const RecoverPass = () => {
                             <Modal.Title>Recover password</Modal.Title>
                         </Modal.Header>
 
-                        <Modal.Body>
+                        <Modal.Body>                         
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Email address"
+                                    className="mb-3"
+                                >
+                                    <Form.Control type="email" placeholder="name@example.com" ref={user_email} name="user_email" />
 
-                            <input type="email" placeholder='Regist mail' ref={user_email} name="user_email" />
-
+                                </FloatingLabel>
                         </Modal.Body>
 
                         <Modal.Footer>

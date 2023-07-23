@@ -11,23 +11,22 @@ const Home = () => {
 
     const [notLog, setNotLog] = useState(false)
 
-    useEffect(() => {
+    const [guestItem, setGuestItem] = useState([])
 
-        if (JSON.parse(localStorage.getItem('USUARIO') === null)) {
-            console.log("no esta logueado");
-            setNotLog(true)
-        }
+    useEffect(() => {
+        setGuestItem(JSON.parse(localStorage.getItem('USUARIO')))
 
     }, [])
+
     const notify = () => {
         toast.info(ToastLogMesage, { autoClose: 2000 })
     }
 
     const isLoged = () => {
-        if (notLog) {
-            console.log("debe loguearse");
+
+        if (guestItem === null) {
             notify()
-        }
+        } 
     }
 
 
@@ -41,11 +40,12 @@ const Home = () => {
 
             <button onClick={isLoged}>
                 {
-                    notLog ?
-                        <Link to={`/`}>
+                    guestItem !== null ?
+                        <Link to={`/asignar-tarea`}>
                             ASIGNAR TAREA
                         </Link>
-                        : <Link to={`/asignar-tarea`}>
+                        :
+                        <Link to={`/`}>
                             ASIGNAR TAREA
                         </Link>
                 }
@@ -58,16 +58,15 @@ const Home = () => {
 
 
             <Link to={`/tarea-rapida`}>
-                TAREA RAPIDA
+                Quick task
             </Link>
 
             <Button onClick={logOut} >
                 {
-                    notLog ?
-                        " LOG-IN"
+                    guestItem !== null ?
+                        "log-OUT"
                         :
-                        "log-out"
-
+                        " LOG-in"
                 }
             </Button>
 

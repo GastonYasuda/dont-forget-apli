@@ -1,46 +1,45 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { ApiContext } from '../../Context/ApiContext';
 import { FaTrashAlt } from 'react-icons/fa';
 import { ImCheckboxChecked } from 'react-icons/im';
 import { ImCheckboxUnchecked } from 'react-icons/im';
+import { ApiContext } from '../../Context/ApiContext';
 
 
 
-const TaskList = ({ eachTask }) => {
+const TaskList = ({ eachTask, userTasks }) => {
 
     const { user, setUser, addTask } = useContext(ApiContext)
 
-
     const checkToggle = (i) => {
-        eachTask.task[i].done = !eachTask.task[i].done
+        const newNew = [...eachTask.task]
+        newNew[i].done = !newNew[i].done
 
-        setUser({ ...user, "tasks": user.tasks })
-        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
-        addTask(user.id, "", user.tasks)
+        setUser({ ...user, "tasks": userTasks })//state
+        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": userTasks }))//local
+        addTask(user.id, "", userTasks) //db
     }
 
 
     const clearTask = (i) => {
 
-        for (const key in user.tasks) {
+        for (const key in userTasks) {
+            const userTask = [...user.tasks]
 
-            let newTask = user.tasks
+            if (userTask[key].fecha === eachTask.fecha) {
 
-            if (newTask[key].fecha === eachTask.fecha) {
-                newTask[key].task.splice(i, 1)
-               
-                if (Object.keys(newTask[key].task).length === 0) {
-                    newTask.splice([key], 1)
+                userTask[key].task.splice(i, 1)
+
+                if (userTask[key].task.length === 0) {
+                    userTask.splice([key], 1)
                 }
+                setUser({ ...user, "tasks": userTask })//state
+                localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": userTask }))//local
+                addTask(user.id, "", userTask) //db
             }
+
         }
-
-
-        setUser({ ...user, "tasks": user.tasks })
-        localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": user.tasks }))
-        addTask(user.id, "", user.tasks)
     }
 
 
@@ -62,7 +61,6 @@ const TaskList = ({ eachTask }) => {
                                 </Button>
 
                                 <p style={{ textDecoration: task.done ? 'line-through' : '' }}>{task.name}</p>
-
 
                                 <Button onClick={() => { clearTask(i) }}>
                                     <FaTrashAlt />

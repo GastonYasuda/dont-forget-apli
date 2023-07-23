@@ -1,19 +1,54 @@
-import React, { useRef } from 'react'
-import { useForm } from "react-hook-form";
+import React, { useContext, useRef, useState } from 'react'
+import { ApiContext } from '../../Context/ApiContext';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
-const LoginNormal = ({ register, errors }) => {
 
+const LoginNormal = () => {
+
+    const { checkUser } = useContext(ApiContext)
+    const loginName = useRef()
+    const password = useRef()
+
+    const [loginMailValue, setLoginNameValue] = useState('')
+    const [loginPasswordValue, setLoginPasswordValue] = useState('')
+
+
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        checkUser(loginMailValue, password.current.value)
+        setLoginNameValue('')
+        setLoginPasswordValue('')
+    };
 
     return (
-        <>
-            <input type='email' placeholder='Mail'  {...register("LoginName", { required: true })} />
-            {errors?.LoginName?.type === "required" && <p>Incomplete field.</p>}
+        <form onSubmit={onSubmit}>
+
+            <FloatingLabel
+                controlId="floatingInput"
+                label="Email address"
+                className="mb-3"
+            >
+                <Form.Control type="email" placeholder="name@example.com"
+                    ref={loginName}
+                    onChange={e => { setLoginNameValue(loginName.current.value) }}
+                    value={loginMailValue}
+                />
+            </FloatingLabel>
 
 
-            <input type='password' placeholder='Contraseña' {...register("password", { required: true })} />
-            {/* errors will return when field validation fails  */}
-            {errors?.password?.type === "required" && <p>Incomplete field.</p>}
-        </>
+            <FloatingLabel controlId="floatingPassword" label="Password">
+                <Form.Control type="password" placeholder="Password"
+                    ref={password}
+                    onChange={e => { setLoginPasswordValue(password.current.value) }}
+                    value={loginPasswordValue}
+                />
+            </FloatingLabel>
+
+            <Button type='submit'>Enter</Button>
+        </form>
     )
 }
 

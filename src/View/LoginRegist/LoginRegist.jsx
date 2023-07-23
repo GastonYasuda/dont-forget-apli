@@ -1,13 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from "react-hook-form";
 import { ApiContext } from '../../Context/ApiContext';
 import Swal from 'sweetalert2';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 const LoginRegist = ({ showModal, setShowModal }) => {
 
     const { addNewUser } = useContext(ApiContext)
+
+    const nickNameValue = useRef()
+    const loginMailValue = useRef()
+    const passwordValue = useRef()
 
     const {
         register,
@@ -20,9 +26,14 @@ const LoginRegist = ({ showModal, setShowModal }) => {
 
     const onSubmit = () => {
 
-        const nickName = getValues("nickName")
-        const loginMail = getValues("loginMail")
-        const password = getValues("password")
+        const nickName = nickNameValue.current.value
+        const loginMail = loginMailValue.current.value
+        const password = passwordValue.current.value
+
+        console.log(nickName);
+        console.log(loginMail);
+        console.log(password);
+
 
         const haveAtSign = loginMail.includes("@")
 
@@ -42,7 +53,7 @@ const LoginRegist = ({ showModal, setShowModal }) => {
                 'Welcome to don`t forget apli',
                 'success'
             )
-            setShowModal(false)
+            setShowModal(true)
         }
     };
 
@@ -62,15 +73,38 @@ const LoginRegist = ({ showModal, setShowModal }) => {
                         </Modal.Header>
 
                         <Modal.Body>
-                            <input type='text' placeholder='Nickname' {...register("nickName", { required: true })} />
-                            {errors?.LoginName?.type === "required" && <p>Incomplete field.</p>}
+
+                            <form onSubmit={onSubmit}>
+
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Nickname"
+                                    className="mb-3"
+                                >
+                                    <Form.Control type="text" placeholder="Nickname"
+                                        ref={nickNameValue}
+                                    />
+                                </FloatingLabel>
+
+                                <FloatingLabel
+                                    controlId="floatingInput"
+                                    label="Email address"
+                                    className="mb-3"
+                                >
+                                    <Form.Control type="email" placeholder="name@example.com"
+                                        ref={loginMailValue}
+                                    />
+                                </FloatingLabel>
 
 
-                            <input type='email' placeholder='Mail' {...register("loginMail", { required: true })} />
-                            {errors?.loginMail?.type === "required" && <p>Incomplete field.</p>}
 
-                            <input type='password' placeholder='Password' {...register("password", { required: true })} />
-                            {errors?.password?.type === "required" && <p>Incomplete field.</p>}
+                                <FloatingLabel controlId="floatingPassword" label="Password">
+                                    <Form.Control type="password" placeholder="Password"
+                                        ref={passwordValue}
+                                    />
+                                </FloatingLabel>
+
+                            </form>
 
                         </Modal.Body>
 
