@@ -1,10 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from "react-hook-form";
-import GenerateNewUser from '../../Service/GenerateNewUser';
 import { ApiContext } from '../../Context/ApiContext';
-
+import Swal from 'sweetalert2';
 
 const LoginRegist = ({ showModal, setShowModal }) => {
 
@@ -12,24 +11,44 @@ const LoginRegist = ({ showModal, setShowModal }) => {
 
     const {
         register,
-        handleSubmit,
         getValues,
-        reset,
 
         formState: { errors }
     } = useForm();
 
 
+
     const onSubmit = () => {
 
-        addNewUser(getValues("nickName"), getValues("loginMail"), getValues("password"))
-        setShowModal(false)
+        const nickName = getValues("nickName")
+        const loginMail = getValues("loginMail")
+        const password = getValues("password")
+
+        const haveAtSign = loginMail.includes("@")
+
+        if (nickName === '' || loginMail === '' || password === '' || haveAtSign === false) {
+            Swal.fire(
+                'INCOMPLETE DATA!',
+                'Please enter the correct data',
+                'error'
+            )
+            setShowModal(false)
+
+        } else {
+            addNewUser(nickName, loginMail, password)
+
+            Swal.fire(
+                'REGIST COMPLETE!',
+                'Welcome to don`t forget apli',
+                'success'
+            )
+            setShowModal(false)
+        }
     };
 
 
     return (
         <div>
-
             {
                 showModal ?
 
@@ -39,28 +58,29 @@ const LoginRegist = ({ showModal, setShowModal }) => {
                         keyboard={false}
                     >
                         <Modal.Header>
-                            <Modal.Title>Register form</Modal.Title>
+                            <Modal.Title>Sign-in form</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
                             <input type='text' placeholder='Nickname' {...register("nickName", { required: true })} />
-                            {errors?.LoginName?.type === "required" && <p>Campo incompleto.</p>}
+                            {errors?.LoginName?.type === "required" && <p>Incomplete field.</p>}
+
 
                             <input type='email' placeholder='Mail' {...register("loginMail", { required: true })} />
-                            {errors?.LoginName?.type === "required" && <p>Campo incompleto.</p>}
+                            {errors?.loginMail?.type === "required" && <p>Incomplete field.</p>}
 
                             <input type='password' placeholder='Password' {...register("password", { required: true })} />
-                            {/* errors will return when field validation fails  */}
-                            {errors?.password?.type === "required" && <p>Campo incompleto.</p>}
+                            {errors?.password?.type === "required" && <p>Incomplete field.</p>}
+
                         </Modal.Body>
 
                         <Modal.Footer>
-
                             <Button variant="secondary" onClick={() => { setShowModal(false) }}>Close</Button>
-                            <Button variant="primary" onClick={() => { onSubmit() }}>Save changes</Button>
+                            <Button variant="primary" onClick={() => { onSubmit() }}>Regist</Button>
 
                         </Modal.Footer>
                     </Modal>
+
                     :
                     null
             }

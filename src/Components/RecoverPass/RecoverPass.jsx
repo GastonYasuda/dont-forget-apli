@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ApiContext } from '../../Context/ApiContext';
+import Swal from 'sweetalert2'
 
 const RecoverPass = () => {
 
@@ -16,21 +17,27 @@ const RecoverPass = () => {
         if (userPass.length !== 0) {
 
             try {
-
                 const array = {
                     user_name: userPass.nickname,
                     message: userPass.password,
                     mailto: mailValue
                 }
-                console.log(array);
 
-                emailJS(array)
-                //COMENTADO ASI NO BUSCA TODO EL TIEMPO
+                // emailJS(array)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Your password has been sent!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 
                 setShowRecover(false)
 
             } catch (error) {
+
                 console.log(error);
+
+
             }
         }
 
@@ -39,17 +46,24 @@ const RecoverPass = () => {
 
 
     const onSubmit = () => {
+
         const getMailValue = (user_email.current.value)
+
         setMailValue(getMailValue)
         searchPass(getMailValue)
 
+        const haveAtSign = getMailValue.includes("@")
 
-
+        if (haveAtSign === true) {
+            setMailValue(getMailValue)
+            searchPass(getMailValue)
+        }
+        setShowRecover(false)
     };
 
     return (
         <>
-            <button onClick={() => { setShowRecover(true) }}>recuperar contraseña</button >
+            <button onClick={() => { setShowRecover(true) }}>Recover password</button >
 
             {
                 showRecover ?
@@ -64,14 +78,14 @@ const RecoverPass = () => {
 
                         <Modal.Body>
 
-                            <input type="email" placeholder='Mail registrado' ref={user_email} name="user_email" />
+                            <input type="email" placeholder='Regist mail' ref={user_email} name="user_email" />
 
                         </Modal.Body>
 
                         <Modal.Footer>
 
                             <Button variant="secondary" onClick={() => { setShowRecover(false) }}>Close</Button>
-                            <Button variant="primary" onClick={() => { onSubmit() }}>Continue</Button>
+                            <Button variant="primary" onClick={() => { onSubmit() }}>Send</Button>
 
                         </Modal.Footer>
                     </Modal>

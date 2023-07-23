@@ -5,13 +5,12 @@ import LoginNormal from '../../Components/LoginNormal/LoginNormal';
 import LoginRegist from '../LoginRegist/LoginRegist';
 import RecoverPass from '../../Components/RecoverPass/RecoverPass';
 import Home from '../Home/Home';
-import Swal from 'sweetalert2';
 import LoginGoogle from '../../Components/LoginGoogle/LoginGoogle';
 
 
 const Login = () => {
 
-    const { checkUser, user, addNewUser, continueOmit, setContinueOmit, getLocal } = useContext(ApiContext)
+    const { checkUser, user, continueOmit, setContinueOmit, getLocal } = useContext(ApiContext)
 
     const [showModal, setShowModal] = useState(false)
 
@@ -36,15 +35,12 @@ const Login = () => {
     useEffect(() => {
         getLocal()
 
-
-    }, [user])
+    }, [user, continueOmit])
 
 
 
     const onSubmit = () => {
-
         checkUser(getValues("LoginName"), getValues("password"))
-
         reset()
     };
 
@@ -59,33 +55,35 @@ const Login = () => {
                     <Home />
                     :
                     <form onSubmit={handleSubmit(onSubmit)} ref={form} >
-                        <h4>Iniciar sesión</h4>
+                        <h4>LOG-IN</h4>
 
                         <LoginNormal register={register} errors={errors} />
-
-
                         <div>
-                            <p>¿No tienes cuenta?</p>
-                            <button onClick={() => { setShowModal(true) }}>REGISTRATE</button>
-                            <LoginRegist showModal={showModal} setShowModal={setShowModal} />
-                            {/* DESPUES DE REGISTRAR SETCONTINUEOMIT TIENE QUE SER TRUE */}
+                            <div>
+                                <div>
+                                    <p>Create you account for free! </p>
+                                    <button onClick={() => { setShowModal(true) }}>SIGN IN</button>
+                                    <LoginRegist showModal={showModal} setShowModal={setShowModal} />
+                                    {/* DESPUES DE REGISTRAR SETCONTINUEOMIT TIENE QUE SER TRUE */}
+
+                                </div>
+
+                                <div>
+                                    <RecoverPass />
+                                </div>
+
+                                <button type='submit'>ENTER</button>
+
+                                <div>
+                                    <LoginGoogle />
+                                </div>
+
+                                <button onClick={() => { setContinueOmit(true) }}>
+                                    Continue without login
+                                </button>
+                            </div>
                         </div>
-
-                        <div>
-                            <RecoverPass />
-                        </div>
-
-                        <button type='submit'>INGRESAR</button>
-
-                        <div>
-                            <LoginGoogle />
-                        </div>
-
-                        <button onClick={() => { setContinueOmit(true) }}>
-                            Continue without login
-                        </button>
-
-                    </form >
+                    </form>
             }
 
         </>

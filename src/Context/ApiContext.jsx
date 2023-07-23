@@ -25,9 +25,6 @@ const ApiProvider = ({ children }) => {
 
         const querySnapshot = await getDocs(q);
 
-        console.log(typeof (querySnapshot));
-        console.log(querySnapshot.empty);//true no tiene nada
-
         if (querySnapshot.empty === false) {
 
             querySnapshot.forEach((doc) => {
@@ -37,8 +34,13 @@ const ApiProvider = ({ children }) => {
                 localStorage.setItem('USUARIO', JSON.stringify(usuarioConId))
                 setContinueOmit(true)
             });
+
         } else {
-            console.log("no existe ");
+            Swal.fire(
+                'LOGIN ERROR!',
+                'This user doesn`t exist ',
+                'error'
+            )
             setCreateGoogleUser(true)
         }
     }
@@ -97,7 +99,19 @@ const ApiProvider = ({ children }) => {
         const isLogged = tieneRegistro.docs.map((doc) => {
             return { id: doc.id, ...doc.data() };
         });
-        setUserPass(isLogged[0]);
+
+        if (tieneRegistro.docs.length !== 0) {
+            console.log("chan");
+            setUserPass(isLogged[0]);
+
+        } else {
+            Swal.fire(
+                'MAIL ERROR!',
+                'Email entered not found',
+                'error'
+            )
+        }
+
     }
 
 

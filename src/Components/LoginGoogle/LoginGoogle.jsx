@@ -26,12 +26,12 @@ const LoginGoogle = () => {
             console.log(error)
         }
     }, []);
+
     useEffect(() => {
         if (createGoogleUser) {
-            // console.log("hola");
+
             if (googleUser.length !== 0) {
-                // console.log(googleUser.givenName);
-                // console.log("llego");
+
                 addNewUser(googleUser.givenName, googleUser.email, googleUser.googleId)
             }
 
@@ -43,7 +43,6 @@ const LoginGoogle = () => {
 
     const onSuccess = (response) => {
         const googleU = response.profileObj
-        // console.log(googleU);
 
         setGoogleUser(response.profileObj)
         checkUser(googleU.email, googleU.googleId)

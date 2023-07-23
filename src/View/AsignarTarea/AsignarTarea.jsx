@@ -14,18 +14,10 @@ const AsignarTarea = () => {
 
     const { user, addNewTask } = useContext(ApiContext)
 
-   
-    const handleDateChange = (e) => {
-        console.log(e.target.value);
-        console.log(typeof (e.target.value));
 
 
-        setInputDate(e.target.value)
-    }
 
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value);
-    }
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -47,8 +39,8 @@ const AsignarTarea = () => {
 
             <h4>AsignarTarea</h4>
             <form onSubmit={handleSubmit}>
-                <input type="date" onChange={handleDateChange} value={inputDate} />
-                <input type='text' onChange={handleInputChange} value={inputValue} />
+                <input type="date" onChange={e => setInputDate(e.target.value)} value={inputDate} />
+                <input type='text' onChange={e => setInputValue(e.target.value)} value={inputValue} placeholder='Task' />
                 <button>ok</button>
             </form>
 
