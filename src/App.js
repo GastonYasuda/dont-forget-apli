@@ -1,14 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './View/Home/Home';
 import AsignarTarea from './View/AsignarTarea/AsignarTarea';
 import TareaRapida from './View/TareaRapida/TareaRapida';
 import Login from './View/LogIn/Login';
 import ApiProvider from './Context/ApiContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginRegist from './View/LoginRegist/LoginRegist';
-
-
+import './App.scss'
 
 function App() {
   return (
@@ -16,10 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-
           <Route path='/' element={<Login />} />
-
-
           <Route path='/asignar-tarea' element={<AsignarTarea />} />
           <Route path='/tarea-rapida' element={<TareaRapida />} />
 
