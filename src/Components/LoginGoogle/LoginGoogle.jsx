@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { gapi } from 'gapi-script';
-import GoogleLogin from 'react-google-login';
+// import GoogleLogin from 'react-google-login';
 import { ApiContext } from '../../Context/ApiContext';
+import { GoogleLogin } from '@leecheuk/react-google-login';
 
 
 const LoginGoogle = () => {
