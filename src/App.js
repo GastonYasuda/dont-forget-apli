@@ -6,6 +6,8 @@ import Login from './View/LogIn/Login';
 import ApiProvider from './Context/ApiContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss'
+import "./scss/style.scss";
+
 
 function App() {
   return (
