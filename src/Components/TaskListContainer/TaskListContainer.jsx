@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import TaskList from '../TaskList/TaskList';
 import { ApiContext } from '../../Context/ApiContext';
 
+
 const TaskListContainer = () => {
 
-
     const [userTasks, setUserTasks] = useState([])
-
     const { user } = useContext(ApiContext)
-
+    
 
     useEffect(() => {
         const item = JSON.parse(localStorage.getItem('USUARIO'))
@@ -16,8 +15,8 @@ const TaskListContainer = () => {
 
             setUserTasks(item.tasks)
         }
-
     }, [user])
+
 
     return (
         <div>

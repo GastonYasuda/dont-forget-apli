@@ -6,17 +6,13 @@ import moment from 'moment';
 import 'moment/locale/es-mx';
 moment.locale('es-mx')
 
+
 const AsignarTarea = () => {
 
     const [inputDate, setInputDate] = useState("")
     const [inputValue, setInputValue] = useState("")
 
     const { addNewTask } = useContext(ApiContext)
-
-    useEffect(() => {
-        console.log("entro");
-    }, [])
-
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,8 +23,10 @@ const AsignarTarea = () => {
         setInputValue('')
     }
 
+
     return (
         <div>
+            
             <Link to={`/`}>
                 <h1>HOME</h1>
             </Link>

@@ -25,7 +25,7 @@ const RecoverPass = () => {
                     mailto: mailValue
                 }
 
-               // emailJS(array)
+                emailJS(array)
                 Swal.fire({
                     icon: 'success',
                     title: 'Your password has been sent!',
@@ -73,15 +73,15 @@ const RecoverPass = () => {
                             <Modal.Title>Recover password</Modal.Title>
                         </Modal.Header>
 
-                        <Modal.Body>                         
-                                <FloatingLabel
-                                    controlId="floatingInput"
-                                    label="Email address"
-                                    className="mb-3"
-                                >
-                                    <Form.Control type="email" placeholder="name@example.com" ref={user_email} name="user_email" />
+                        <Modal.Body>
+                            <FloatingLabel
+                                controlId="floatingInput"
+                                label="Email address"
+                                className="mb-3"
+                            >
+                                <Form.Control type="email" placeholder="name@example.com" ref={user_email} name="user_email" />
 
-                                </FloatingLabel>
+                            </FloatingLabel>
                         </Modal.Body>
 
                         <Modal.Footer>

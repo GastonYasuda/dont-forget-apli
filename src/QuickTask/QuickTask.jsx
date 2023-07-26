@@ -5,6 +5,7 @@ import { ImCheckboxUnchecked } from 'react-icons/im';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+
 const QuickTask = ({ tasks, setTasks }) => {
 
     const toggleDoneTask = (i) => {
@@ -45,8 +46,7 @@ const QuickTask = ({ tasks, setTasks }) => {
                             </Form>
                         </div>
                     )
-                }
-                )
+                })
             }
         </div>
     )

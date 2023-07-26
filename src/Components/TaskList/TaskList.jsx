@@ -7,7 +7,6 @@ import { ImCheckboxUnchecked } from 'react-icons/im';
 import { ApiContext } from '../../Context/ApiContext';
 
 
-
 const TaskList = ({ eachTask, userTasks }) => {
 
     const { user, setUser, addTask } = useContext(ApiContext)
@@ -38,7 +37,6 @@ const TaskList = ({ eachTask, userTasks }) => {
                 localStorage.setItem('USUARIO', JSON.stringify({ ...user, "tasks": userTask }))//local
                 addTask(user.id, "", userTask) //db
             }
-
         }
     }
 
@@ -66,13 +64,11 @@ const TaskList = ({ eachTask, userTasks }) => {
                                     <FaTrashAlt />
                                 </Button>
 
-
                             </Form>
                         </div>
                     )
                 })
             }
-
         </div >
     )
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useForm } from "react-hook-form";
 import { ApiContext } from '../../Context/ApiContext';
 import Swal from 'sweetalert2';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -15,25 +14,11 @@ const LoginRegist = ({ showModal, setShowModal }) => {
     const loginMailValue = useRef()
     const passwordValue = useRef()
 
-    const {
-        register,
-        getValues,
-
-        formState: { errors }
-    } = useForm();
-
-
-
     const onSubmit = () => {
 
         const nickName = nickNameValue.current.value
         const loginMail = loginMailValue.current.value
         const password = passwordValue.current.value
-
-        console.log(nickName);
-        console.log(loginMail);
-        console.log(password);
-
 
         const haveAtSign = loginMail.includes("@")
 
@@ -111,10 +96,9 @@ const LoginRegist = ({ showModal, setShowModal }) => {
                         <Modal.Footer>
                             <Button variant="secondary" onClick={() => { setShowModal(false) }}>Close</Button>
                             <Button variant="primary" onClick={() => { onSubmit() }}>Regist</Button>
-
                         </Modal.Footer>
+                        
                     </Modal>
-
                     :
                     null
             }

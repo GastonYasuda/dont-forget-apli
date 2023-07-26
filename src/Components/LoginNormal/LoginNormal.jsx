@@ -8,13 +8,12 @@ import Form from 'react-bootstrap/Form';
 const LoginNormal = () => {
 
     const { checkUser } = useContext(ApiContext)
-    const loginName = useRef()
-    const password = useRef()
 
     const [loginMailValue, setLoginNameValue] = useState('')
     const [loginPasswordValue, setLoginPasswordValue] = useState('')
 
-
+    const loginName = useRef()
+    const password = useRef()
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -23,28 +22,30 @@ const LoginNormal = () => {
         setLoginPasswordValue('')
     };
 
+
     return (
         <form onSubmit={onSubmit}>
 
             <FloatingLabel
                 controlId="floatingInput"
                 label="Email address"
-                className="mb-3"
-            >
+                className="mb-3">
+
                 <Form.Control type="email" placeholder="name@example.com"
                     ref={loginName}
                     onChange={e => { setLoginNameValue(loginName.current.value) }}
-                    value={loginMailValue}
-                />
+                    value={loginMailValue} />
+
             </FloatingLabel>
 
 
             <FloatingLabel controlId="floatingPassword" label="Password">
+
                 <Form.Control type="password" placeholder="Password"
                     ref={password}
                     onChange={e => { setLoginPasswordValue(password.current.value) }}
-                    value={loginPasswordValue}
-                />
+                    value={loginPasswordValue} />
+
             </FloatingLabel>
 
             <Button type='submit'>Enter</Button>

@@ -13,15 +13,12 @@ const Login = () => {
 
     const [showModal, setShowModal] = useState(false)
 
-
-
     useEffect(() => {
         if (JSON.parse(localStorage.getItem('USUARIO')) !== null) {
             setContinueOmit(true)
         }
 
     }, [user, continueOmit])
-
 
 
     return (
@@ -39,15 +36,11 @@ const Login = () => {
                             <p>Create you account for free! </p>
                             <button onClick={() => { setShowModal(true) }}>SIGN IN</button>
                             <LoginRegist showModal={showModal} setShowModal={setShowModal} />
-                            {/* DESPUES DE REGISTRAR SETCONTINUEOMIT TIENE QUE SER TRUE */}
-
                         </div>
 
                         <div>
                             <RecoverPass />
                         </div>
-
-                        {/* <button type='submit'>ENTER</button> */}
 
                         <div>
                             <LoginGoogle />
@@ -56,10 +49,8 @@ const Login = () => {
                         <button onClick={() => { setContinueOmit(true) }}>
                             Continue without login
                         </button>
-
                     </div>
             }
-
         </>
     )
 }

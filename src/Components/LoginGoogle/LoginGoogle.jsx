@@ -15,7 +15,6 @@ const LoginGoogle = () => {
 
     useEffect(() => {
         try {
-
             const start = () => {
                 gapi.auth2.init({
                     clientId: clientId,
@@ -30,16 +29,12 @@ const LoginGoogle = () => {
 
     useEffect(() => {
         if (createGoogleUser) {
-
             if (googleUser.length !== 0) {
 
                 addNewUser(googleUser.givenName, googleUser.email, googleUser.googleId)
             }
-
-
         }
     }, [googleUser, createGoogleUser])
-
 
 
     const onSuccess = (response) => {
@@ -47,12 +42,10 @@ const LoginGoogle = () => {
 
         setGoogleUser(response.profileObj)
         checkUser(googleU.email, googleU.googleId)
-
     }
 
     const onFailure = (error) => {
         console.log(error);
-
     }
 
 

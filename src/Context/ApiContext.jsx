@@ -9,10 +9,10 @@ import GenerateNewUser from '../Service/GenerateNewUser';
 
 export const ApiContext = createContext()
 
+
 const ApiProvider = ({ children }) => {
 
     const [continueOmit, setContinueOmit] = useState(false)
-
     const [user, setUser] = useState([])
 
     useEffect(() => {
@@ -21,6 +21,7 @@ const ApiProvider = ({ children }) => {
 
 
     //-------------------------------checkUser
+
     const [createGoogleUser, setCreateGoogleUser] = useState(false)
 
     const checkUser = async (mail, pass) => {
@@ -50,6 +51,7 @@ const ApiProvider = ({ children }) => {
         }
     }
 
+
     //-------------------------------addNewUser
 
     const addNewUser = async (nicknameValue, loginMailValue, passwordValue) => {
@@ -75,6 +77,7 @@ const ApiProvider = ({ children }) => {
 
     }
 
+
     //-------------------------------logOut
 
     const logOut = () => {
@@ -86,6 +89,7 @@ const ApiProvider = ({ children }) => {
 
 
     //-------------------------------searchPass
+
     const [userPass, setUserPass] = useState([])
     const searchPass = async (mailValue) => {
         const cole = collection(db, "user")
@@ -139,7 +143,8 @@ const ApiProvider = ({ children }) => {
         addTask(item.id, "", item.tasks) //db
     }
 
-    //-------------------------------addTask me guarda en db
+
+    //-------------------------------addTask
 
     const addTask = async (userId, typeOf, array) => {
         const userRef = doc(db, 'user', userId)
@@ -148,8 +153,8 @@ const ApiProvider = ({ children }) => {
     }
 
 
-
     //-------------------------------emailJS
+
     const emailJS = async (data) => {
         // API NECESARIA PARA ENVIAR UN CORREO ELECTRONICO A CIERTO MAIL.
         // ARRAY NECESARIO DE "data"
@@ -165,9 +170,8 @@ const ApiProvider = ({ children }) => {
     }
 
 
-
     return (
-        <ApiContext.Provider value={{ user, checkUser, setUser, addNewTask, addTask, emailJS, addNewUser, searchPass, userPass, continueOmit, setContinueOmit, logOut, createGoogleUser }}>
+        <ApiContext.Provider value={{ checkUser, setUser, addNewTask, addTask, emailJS, addNewUser, searchPass, setContinueOmit, logOut, user, userPass, continueOmit, createGoogleUser }}>
             {children}
         </ApiContext.Provider>
     )

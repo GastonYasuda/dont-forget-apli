@@ -9,13 +9,10 @@ const Home = () => {
 
     const { logOut } = useContext(ApiContext)
 
-    const [notLog, setNotLog] = useState(false)
-
     const [guestItem, setGuestItem] = useState([])
 
     useEffect(() => {
         setGuestItem(JSON.parse(localStorage.getItem('USUARIO')))
-
     }, [])
 
     const notify = () => {
@@ -37,7 +34,6 @@ const Home = () => {
                 <h1>HOME</h1>
             </Link>
 
-
             <button onClick={isLoged}>
                 {
                     guestItem !== null ?
@@ -50,12 +46,7 @@ const Home = () => {
                         </Link>
                 }
             </button>
-
-
-
-
-
-
+            
 
             <Link to={`/tarea-rapida`}>
                 Quick task
