@@ -8,19 +8,20 @@ const TaskListContainer = () => {
     const [userTasks, setUserTasks] = useState([])
 
     const { user } = useContext(ApiContext)
+
+
     useEffect(() => {
         const item = JSON.parse(localStorage.getItem('USUARIO'))
         if (item !== null) {
 
             setUserTasks(item.tasks)
         }
-    }, [user])
 
+    }, [user])
 
     return (
         <div>
             {
-                userTasks.length !== 0 &&
                 userTasks.map((tasks, i) => {
                     return (
                         <div key={i} >
