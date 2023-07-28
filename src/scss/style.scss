@@ -1,4 +1,51 @@
-//pongo los styles generales
+@use 'mainColor';
 
-@import "../view/Home/Home.scss"
-//importo los nuevos archivos scss que voy creando
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+//-----------------------flex column 
+
+.d-f-col {
+    display: flex;
+    flex-direction: column
+}
+
+//-----------------------flex column align-center justi-center
+
+.d-f-col-center-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+//-----------------------flex row 
+
+.d-f-row {
+    display: flex;
+    flex-direction: row
+}
+
+//-----------------------flex row align-center justi-center
+
+.d-f-row-center-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+//-----------------------border radius
+
+.b-radius {
+    border-radius: 15px;
+}
+
+@import "../view/Home/Home.scss";
+@import "../view/Login/Login.scss";
+
+@import "../Components/LoginNormal/LoginNormal.scss"

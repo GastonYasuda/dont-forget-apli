@@ -48,7 +48,7 @@ const LoginNormal = () => {
 
             </FloatingLabel>
 
-            <Button type='submit'>Enter</Button>
+            <Button type='submit' className='enterButton'>Enter</Button>
         </form>
     )
 }

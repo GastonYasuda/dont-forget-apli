@@ -22,36 +22,46 @@ const Login = () => {
 
 
     return (
-        <>
+        <div>
             {
                 continueOmit ?
                     <Home />
                     :
-                    <div>
-                        <h4>LOG-IN</h4>
+                    <div className='login d-f-row '>
 
-                        <LoginNormal />
+                        <div className='login__container d-f-col b-radius'>
 
-                        <div>
-                            <p>Create you account for free! </p>
-                            <button onClick={() => { setShowModal(true) }}>SIGN IN</button>
-                            <LoginRegist showModal={showModal} setShowModal={setShowModal} />
+                            <div className='loginTitle'>
+                                <h4>LOG-IN</h4>
+                            </div>
+
+                            <LoginNormal />
+
+                            <div className='createAccount d-f-row-center-center'>
+                                <p>Create you account for free! </p>
+                                <button className='signInButton' onClick={() => { setShowModal(true) }}>SIGN IN</button>
+                                <LoginRegist showModal={showModal} setShowModal={setShowModal} />
+                            </div>
+
+                            <div>
+                                <RecoverPass />
+                            </div>
+
+                            <div>
+                                <LoginGoogle />
+                            </div>
+
+                            <button onClick={() => { setContinueOmit(true) }}>
+                                Continue without login
+                            </button>
                         </div>
 
-                        <div>
-                            <RecoverPass />
-                        </div>
-
-                        <div>
-                            <LoginGoogle />
-                        </div>
-
-                        <button onClick={() => { setContinueOmit(true) }}>
-                            Continue without login
-                        </button>
+                        <section className='login__img d-f-row-center-center'>
+                            <img src="/assets/thinking.png" alt="women thinking" />
+                        </section>
                     </div>
             }
-        </>
+        </div>
     )
 }
 
