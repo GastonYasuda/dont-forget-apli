@@ -5,6 +5,7 @@ import LoginRegist from '../LoginRegist/LoginRegist';
 import RecoverPass from '../../Components/RecoverPass/RecoverPass';
 import Home from '../Home/Home';
 import LoginGoogle from '../../Components/LoginGoogle/LoginGoogle';
+import Navbar from '../Navbar/Navbar';
 
 
 const Login = () => {
@@ -22,14 +23,15 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div className='loginBody'>
+            <Navbar />
             {
                 continueOmit ?
                     <Home />
                     :
                     <div className='login d-f-row '>
 
-                        <div className='login__container d-f-col b-radius'>
+                        <div className='login__container d-f-col-center-center b-radius-15'>
 
                             <div className='loginTitle'>
                                 <h4>LOG-IN</h4>
@@ -38,8 +40,8 @@ const Login = () => {
                             <LoginNormal />
 
                             <div className='createAccount d-f-row-center-center'>
-                                <p>Create you account for free! </p>
-                                <button className='signInButton' onClick={() => { setShowModal(true) }}>SIGN IN</button>
+                                <span>Create you account for free! </span>
+                                <button className='linkButton' onClick={() => { setShowModal(true) }}>SIGN IN</button>
                                 <LoginRegist showModal={showModal} setShowModal={setShowModal} />
                             </div>
 
@@ -47,11 +49,11 @@ const Login = () => {
                                 <RecoverPass />
                             </div>
 
-                            <div>
+                            <div className='googleLink'>
                                 <LoginGoogle />
                             </div>
 
-                            <button onClick={() => { setContinueOmit(true) }}>
+                            <button className='linkButton' onClick={() => { setContinueOmit(true) }}>
                                 Continue without login
                             </button>
                         </div>

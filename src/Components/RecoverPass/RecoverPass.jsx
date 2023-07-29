@@ -61,7 +61,7 @@ const RecoverPass = () => {
 
     return (
         <>
-            <button onClick={() => { setShowRecover(true) }}>Recover password</button >
+            <button className='linkButton' onClick={() => { setShowRecover(true) }}>Recover password</button >
             {
                 showRecover ?
                     <Modal className='modal-content-mg-top '
@@ -70,7 +70,8 @@ const RecoverPass = () => {
                         keyboard={false}
                     >
                         <Modal.Header>
-                            <Modal.Title>Recover password</Modal.Title>
+                            <Modal.Title>
+                                Recover password</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>

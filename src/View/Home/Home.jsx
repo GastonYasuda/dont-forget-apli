@@ -23,47 +23,41 @@ const Home = () => {
 
         if (guestItem === null) {
             notify()
-        } 
+        }
     }
 
 
     return (
-        <div className='centrar'>
+        <div className='homeStyle d-f-row'>
 
-            <Link to={`/`}>
-                <h1>HOME</h1>
-            </Link>
+            <div className='homeStyle__task b-radius-15'>
+                <div onClick={isLoged}>
+                    {
+                        guestItem !== null ?
+                            <Link to={`/asignar-tarea`}>
+                                Assign task
+                            </Link>
+                            :
+                            <Link to={`/`}>
+                                Assign task
+                            </Link>
+                    }
+                </div>
+                <ToastContainer className="mar-top-25" />
+            </div>
 
-            <button onClick={isLoged}>
-                {
-                    guestItem !== null ?
-                        <Link to={`/asignar-tarea`}>
-                            ASIGNAR TAREA
-                        </Link>
-                        :
-                        <Link to={`/`}>
-                            ASIGNAR TAREA
-                        </Link>
-                }
-            </button>
-            
 
-            <Link to={`/tarea-rapida`}>
-                Quick task
-            </Link>
+            <div className='homeStyle__quick b-radius-15'>
 
-            <Button onClick={logOut} >
-                {
-                    guestItem !== null ?
-                        "log-OUT"
-                        :
-                        " LOG-in"
-                }
-            </Button>
+                <Link to={`/tarea-rapida`}>
+                    Quick task
+                </Link>
+            </div>
 
-            <ToastContainer className="mar-top-25" />
 
-        </div>
+
+
+        </div >
     )
 }
 

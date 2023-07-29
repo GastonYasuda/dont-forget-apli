@@ -53,11 +53,6 @@ const LoginGoogle = () => {
 
         <GoogleLogin
             clientId={clientId}
-            render={(renderProps) => (
-                <button className="redesStyle-item" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                    <img src="./Google.png" alt="google" />
-                </button>
-            )}
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={"single_host_origin"}
