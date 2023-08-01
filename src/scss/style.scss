@@ -55,8 +55,8 @@
     background-color: transparent;
 }
 
-@import "../View/Home/Home.scss";
-@import "../view/Login/Login.scss";
-@import "../view/Navbar/Navbar.scss";
+@import "View/Home/Home.scss";
+@import "view/Login/Login.scss";
+@import "view/Navbar/Navbar.scss";
 
-@import "../Components/LoginNormal/LoginNormal.scss";
+@import "Components/LoginNormal/LoginNormal.scss";
