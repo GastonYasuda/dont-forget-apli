@@ -57,8 +57,8 @@
 
 @import "~bootstrap/scss/bootstrap";
 
-@import "../View/Home/home.scss";
-@import "../view/Login/login.scss";
-@import "../view/Navbar/navbar.scss";
+@import "../View/Home/_home.scss";
+@import "../view/Login/_login.scss";
+@import "../view/Navbar/_navbar.scss";
 
-@import "../Components/LoginNormal/loginNormal.scss";
+@import "../Components/LoginNormal/_loginNormal.scss";
