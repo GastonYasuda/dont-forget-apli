@@ -3,6 +3,7 @@ import { ApiContext } from '../../Context/ApiContext';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
+import './loginNormal.css'
 
 
 const LoginNormal = () => {

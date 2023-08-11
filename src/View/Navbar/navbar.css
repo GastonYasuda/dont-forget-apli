@@ -1,0 +1,38 @@
+.navbar {
+    width: 100%;
+    background-color: #100F10;
+
+    .navbar__container {
+        width: 95%;
+        padding-top: 20px;
+        margin: auto;
+        justify-content: space-between;
+
+        .logo {
+            & img {
+                width: 75px;
+            }
+        }
+
+        .login {
+            & img {
+                width: 40px;
+            }
+        }
+    }
+
+
+}
+
+#dropdown-basic {
+    background-color: transparent;
+    border: none;
+}
+
+.welcome {
+    font-weight: 600;
+}
+
+.dropMenuItem {
+    text-decoration: none;
+}

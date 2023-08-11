@@ -1,0 +1,73 @@
+:root {
+    /* ------------DARK */
+
+    --mainColor: #100F10;
+    --secondariColor: #1B1B1B;
+    --thirdColor: #242424;
+
+    /* ------------MAIN */
+    --fourthColor: #8739F9;
+    --fifthColor: #C651CD;
+    --sixthColor: #363636;
+}
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #242424;
+}
+
+/*-----------------------flex column  */
+
+.d-f-col {
+    display: flex;
+    flex-direction: column
+}
+
+/* -----------------------flex column align-center justi-center */
+
+.d-f-col-center-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* -----------------------flex row  */
+
+.d-f-row {
+    display: flex;
+    flex-direction: row
+}
+
+/* -----------------------flex row align-center justi-center */
+
+.d-f-row-center-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/* -----------------------border radius */
+
+.b-radius-15 {
+    border-radius: 15px;
+}
+
+
+/* -----------------------border radius */
+
+.linkButton {
+    margin-left: 5px;
+    border: none;
+    color: var(--fourthColor);
+    background-color: transparent;
+}

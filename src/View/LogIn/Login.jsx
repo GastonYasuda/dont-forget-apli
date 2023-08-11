@@ -6,7 +6,7 @@ import RecoverPass from '../../Components/RecoverPass/RecoverPass';
 import Home from '../Home/Home';
 import LoginGoogle from '../../Components/LoginGoogle/LoginGoogle';
 import Navbar from '../Navbar/Navbar';
-
+import './login.css'
 
 const Login = () => {
 

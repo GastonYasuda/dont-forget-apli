@@ -5,7 +5,7 @@ import TareaRapida from './View/TareaRapida/TareaRapida';
 import Login from './View/LogIn/Login';
 import ApiProvider from './Context/ApiContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles/style.scss";
+import "./styles/style.css";
 
 
 function App() {

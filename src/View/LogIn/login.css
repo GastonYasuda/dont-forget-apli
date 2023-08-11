@@ -1,9 +1,9 @@
 .loginBody {
-    background-color: mainColor.$mainColor;
+
 
     .login {
 
-        &__container {
+        .login__container {
             background-color: #ffff;
             margin: 64px;
             padding: 25px;
@@ -18,13 +18,12 @@
             }
         }
 
-        &__img {
+        .login__img {
             flex: 3;
-            // background-color: mainColor.$secondariColor;
             justify-content: center;
             align-items: center;
 
-            img {
+            & img {
                 width: 60%;
             }
         }

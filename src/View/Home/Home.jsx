@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom'
 import { ApiContext } from '../../Context/ApiContext';
 import { ToastContainer, toast } from 'react-toastify';
 import ToastLogMesage from '../../Components/ToastLogMesage/ToastLogMesage';
+import './home.css'
 
 const Home = () => {
 
@@ -30,16 +30,17 @@ const Home = () => {
     return (
         <div className='homeStyle d-f-row'>
 
-            <div className='homeStyle__task b-radius-15'>
-                <div onClick={isLoged}>
+            <div className='homeStyle__task '>
+                <div onClick={isLoged} className='homeStyle__task-card b-radius-15'>
                     {
                         guestItem !== null ?
                             <Link to={`/asignar-tarea`}>
-                                Assign task
+                                <span>ASSIGN TASK</span>
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, consequuntur reprehenderit asperiores esse blanditiis rerum architecto maxime quas error distinctio, aut facere eaque impedit voluptate nisi rem adipisci, nobis cum.</p>
                             </Link>
                             :
                             <Link to={`/`}>
-                                Assign task
+                                <span>ASSIGN TASK</span>
                             </Link>
                     }
                 </div>
@@ -47,11 +48,14 @@ const Home = () => {
             </div>
 
 
-            <div className='homeStyle__quick b-radius-15'>
+            <div className='homeStyle__task'>
+                <div className='homeStyle__task-card quickColor b-radius-15'>
+                    <Link to={`/tarea-rapida`}>
+                        <span>QUICK TASKS</span>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, consequuntur reprehenderit asperiores esse blanditiis rerum architecto maxime quas error distinctio, aut facere eaque impedit voluptate nisi rem adipisci, nobis cum.</p>
+                    </Link>
 
-                <Link to={`/tarea-rapida`}>
-                    Quick task
-                </Link>
+                </div>
             </div>
 
 
