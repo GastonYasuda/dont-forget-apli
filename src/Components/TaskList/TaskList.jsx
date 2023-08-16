@@ -5,6 +5,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { ImCheckboxChecked } from 'react-icons/im';
 import { ImCheckboxUnchecked } from 'react-icons/im';
 import { ApiContext } from '../../Context/ApiContext';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 
 const TaskList = ({ eachTask, userTasks }) => {
@@ -46,26 +48,35 @@ const TaskList = ({ eachTask, userTasks }) => {
             {
                 eachTask.task.map((task, i) => {
                     return (
-                        <div key={i} >
-                            <Form style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', padding: '5px' }}>
+                        <ListGroup className="list-group-flush" key={i}>
+                            <Form >
+                                <ListGroup.Item style={{ margin: '0 0 15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                <Button onClick={() => { checkToggle(i) }}>
-                                    {
-                                        task.done ?
-                                            <ImCheckboxChecked />
-                                            :
-                                            <ImCheckboxUnchecked />
-                                    }
-                                </Button>
 
-                                <p style={{ textDecoration: task.done ? 'line-through' : '' }}>{task.name}</p>
+                                    <p style={{ textDecoration: task.done ? 'line-through' : '' }}>{task.name}</p>
 
-                                <Button onClick={() => { clearTask(i) }}>
-                                    <FaTrashAlt />
-                                </Button>
+                                    <div>
+                                        <Button onClick={() => { checkToggle(i) }} >
+                                            {
+                                                task.done ?
+                                                    <ImCheckboxChecked />
+                                                    :
+                                                    <ImCheckboxUnchecked />
+                                            }
+                                        </Button>
 
+                                        <Button onClick={() => { clearTask(i) }} style={{ marginLeft: '5px' }}>
+                                            <FaTrashAlt />
+                                        </Button>
+                                    </div>
+
+
+                                </ListGroup.Item>
                             </Form>
-                        </div>
+                        </ListGroup>
+
+
+
                     )
                 })
             }

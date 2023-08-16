@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ApiContext } from '../../Context/ApiContext';
 import { ToastContainer, toast } from 'react-toastify';
 import ToastLogMesage from '../../Components/ToastLogMesage/ToastLogMesage';
 import './home.css'
 
 const Home = () => {
 
-    const { logOut } = useContext(ApiContext)
 
     const [guestItem, setGuestItem] = useState([])
 

@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import TaskList from '../TaskList/TaskList';
 import { ApiContext } from '../../Context/ApiContext';
+import Card from 'react-bootstrap/Card';
 
 
 const TaskListContainer = () => {
 
     const [userTasks, setUserTasks] = useState([])
     const { user } = useContext(ApiContext)
-    
+
 
     useEffect(() => {
         const item = JSON.parse(localStorage.getItem('USUARIO'))
@@ -19,14 +20,17 @@ const TaskListContainer = () => {
 
 
     return (
-        <div>
+        <div className='d-f-row'>
             {
                 userTasks.map((tasks, i) => {
                     return (
-                        <div key={i} >
-                            <h1>{tasks.fecha}</h1>
+                        <Card style={{ width: '18rem', margin: '15px' }} key={i}>
+                            <Card.Body style={{ flex: '0', flexRow: 'row' }}>
+                                <Card.Title>{tasks.fecha}</Card.Title>
+                            </Card.Body>
+
                             <TaskList eachTask={tasks} userTasks={userTasks} />
-                        </div>
+                        </Card>
                     )
                 })
             }
