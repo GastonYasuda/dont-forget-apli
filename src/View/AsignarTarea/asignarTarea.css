@@ -1,0 +1,27 @@
+.assignForm-body {
+
+    width: 80%;
+    margin: auto;
+
+    .assignForm {
+        margin: 25px auto;
+        padding: 25px 0;
+        background-color: beige;
+
+        & .assignForm__container {
+            width: 80%;
+            margin: auto;
+
+            & .title {
+                padding-bottom: 10px;
+            }
+
+            & .assignForm__container-items {
+
+                & .form-floating-class {
+                    padding: 0 10px;
+                }
+            }
+        }
+    }
+}
