@@ -12,14 +12,10 @@
             width: 80%;
             margin: auto;
 
-            & .title {
-                padding-bottom: 10px;
-            }
-
             & .assignForm__container-items {
 
-                & .form-floating-class {
-                    padding: 0 10px;
+                & .floatingInput__task {
+                    width: 100%;
                 }
             }
         }

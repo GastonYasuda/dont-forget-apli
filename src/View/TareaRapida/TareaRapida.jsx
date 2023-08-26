@@ -1,6 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom';
 import QuickTask from '../../QuickTask/QuickTask';
+import './tareaRapida.css'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/esm/Button';
+import Navbar from '../Navbar/Navbar';
+import '../AsignarTarea/asignarTarea.css'
+
 
 
 const TareaRapida = () => {
@@ -24,19 +30,29 @@ const TareaRapida = () => {
 
 
     return (
-        <div>
-            
-            <Link to={`/`}>
-                <h1>HOME</h1>
-            </Link>
-            <h4>Quick task</h4>
+        <div className='loginBody'>
 
-            <form onSubmit={handleSubmit}>
-                <input type="text" onChange={e => setNewTask(e.target.value)} value={newTask} placeholder='Task' />
-                <button>ok</button>
-            </form>
+            <Navbar />
+            <section className='assignForm-body'>
 
-            <QuickTask tasks={tasks} setTasks={setTasks} />
+                <div className='assignForm b-radius-15'>
+                    <div className='assignForm__container'>
+
+                        <h4>Quick task</h4>
+
+                        <form onSubmit={handleSubmit} className='assignForm__container-items d-f-row'>
+                            <FloatingLabel controlId="floatingInput"
+                                label="Task"
+                                className='floatingInput__task'
+                            >
+                                <Form.Control type="text" placeholder="Task" onChange={e => setNewTask(e.target.value)} value={newTask} />
+                            </FloatingLabel>
+                            <Button type='submit'>Add</Button>
+                        </form>
+                    </div>
+                </div>
+                <QuickTask tasks={tasks} setTasks={setTasks} />
+            </section>
 
         </div>
     )

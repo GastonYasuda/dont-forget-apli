@@ -1,3 +1,6 @@
-.taskCard {
-    margin: 15px;
+.card__style {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    padding-bottom: 400px;
 }

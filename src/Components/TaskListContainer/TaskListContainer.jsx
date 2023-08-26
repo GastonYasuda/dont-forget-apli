@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import TaskList from '../TaskList/TaskList';
 import { ApiContext } from '../../Context/ApiContext';
 import Card from 'react-bootstrap/Card';
-
+import './taskListContainer.css'
 
 const TaskListContainer = () => {
 
@@ -20,11 +20,11 @@ const TaskListContainer = () => {
 
 
     return (
-        <div className='d-f-row'>
+        <div className='card__style' >
             {
                 userTasks.map((tasks, i) => {
                     return (
-                        <Card style={{ width: '18rem', margin: '15px' }} key={i}>
+                        <Card  key={i}>
                             <Card.Body style={{ flex: '0', flexRow: 'row' }}>
                                 <Card.Title>{tasks.fecha}</Card.Title>
                             </Card.Body>
