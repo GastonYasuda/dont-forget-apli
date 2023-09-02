@@ -1,17 +1,19 @@
 .homeStyle {
-    width: 80%;
-    margin: 36px auto;
+    margin: 20px;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    gap: 15px;
 
     .homeStyle__task {
 
         .homeStyle__task-card {
-            width: 400px;
-            height: 500px;
+            min-width: 300px;
+            max-width: 400px;
+            min-height: 500px;
+            padding: 15px;
             background-color: #86868B;
             overflow: hidden;
-            padding: 15px;
             position: relative;
 
             & a {
@@ -24,7 +26,7 @@
                 z-index: 20;
                 color: #2B2B2B;
 
-                & .imagen {
+                .imagen {
                     width: 165px;
                     filter: drop-shadow(-2px 10px 25px #282828af);
                     margin: 20px 0;

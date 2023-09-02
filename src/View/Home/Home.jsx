@@ -28,7 +28,7 @@ const Home = () => {
     return (
         <div className='homeStyle d-f-row'>
 
-            <div className='homeStyle__task '>
+            <div className='homeStyle__task'>
                 <div onClick={isLoged} className='homeStyle__task-card b-radius-15'>
                     {
                         guestItem !== null ?
@@ -79,10 +79,6 @@ const Home = () => {
 
                 </div>
             </div>
-
-
-
-
         </div >
     )
 }

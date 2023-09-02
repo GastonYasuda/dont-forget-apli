@@ -9,13 +9,24 @@
         background-color: beige;
 
         & .assignForm__container {
-            width: 80%;
+            width: 95%;
             margin: auto;
 
             & .assignForm__container-items {
+                display: flex;
+                flex-direction: row;
+                gap: 3px;
 
                 & .floatingInput__task {
                     width: 100%;
+                }
+            }
+
+            @media screen and (max-width:700px) {
+                .assignForm__container-items {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3px;
                 }
             }
         }

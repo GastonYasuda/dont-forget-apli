@@ -6,7 +6,7 @@ import { ImCheckboxChecked } from 'react-icons/im';
 import { ImCheckboxUnchecked } from 'react-icons/im';
 import { ApiContext } from '../../Context/ApiContext';
 import ListGroup from 'react-bootstrap/ListGroup';
-
+import './taskList.css'
 
 
 const TaskList = ({ eachTask, userTasks }) => {
@@ -50,12 +50,12 @@ const TaskList = ({ eachTask, userTasks }) => {
                     return (
                         <ListGroup className="list-group-flush" key={i}>
                             <Form >
-                                <ListGroup.Item style={{ margin: '0 0 15px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <ListGroup.Item className='listGroup__container' >
 
 
                                     <p style={{ textDecoration: task.done ? 'line-through' : '' }}>{task.name}</p>
 
-                                    <div>
+                                    <div className='responsive__buttons'>
                                         <Button onClick={() => { checkToggle(i) }} >
                                             {
                                                 task.done ?

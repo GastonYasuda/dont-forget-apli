@@ -5,7 +5,7 @@ import { ImCheckboxUnchecked } from 'react-icons/im';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import '../Components/TaskListContainer/taskListContainer.css'
+import './quickTask.css'
 import ListGroup from 'react-bootstrap/ListGroup';
 
 
@@ -30,24 +30,27 @@ const QuickTask = ({ tasks, setTasks }) => {
                 tasks.map((t, i) => {
                     return (
                         <Card key={i} >
-                            <ListGroup className="list-group-flush" key={i}>
+                            <ListGroup className="list-group-flush eachTask" key={i}>
 
-                                <Form style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', padding: '5px' }}>
+                                <Form className='eachTask__content'>
 
-                                    <p style={{ textDecoration: t.done ? 'line-through' : '' }}>{t.name}</p>
+                                    <span style={{ textDecoration: t.done ? 'line-through' : '' }}>{t.name}</span>
 
-                                    <Button onClick={() => { toggleDoneTask(i) }}>
-                                        {
-                                            t.done ?
-                                                <ImCheckboxChecked />
-                                                :
-                                                <ImCheckboxUnchecked />
-                                        }
-                                    </Button>
+                                    <div className='buttonContainer' >
 
-                                    <Button onClick={() => eliminar(i)}>
-                                        <FaTrashAlt />
-                                    </Button>
+                                        <Button onClick={() => { toggleDoneTask(i) }}>
+                                            {
+                                                t.done ?
+                                                    <ImCheckboxChecked />
+                                                    :
+                                                    <ImCheckboxUnchecked />
+                                            }
+                                        </Button>
+
+                                        <Button onClick={() => eliminar(i)}>
+                                            <FaTrashAlt />
+                                        </Button>
+                                    </div>
                                 </Form>
                             </ListGroup>
                         </Card>

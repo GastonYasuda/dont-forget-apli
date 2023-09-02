@@ -24,7 +24,7 @@ const FormInput = () => {
         <div className='assignForm b-radius-15'>
             <div className='assignForm__container'>
                 <h4>Assign task</h4>
-                <form onSubmit={handleSubmit} className='assignForm__container-items d-f-row'>
+                <form onSubmit={handleSubmit} className='assignForm__container-items'>
 
                     <FloatingLabel controlId="floatingInput" label="Date">
                         <Form.Control type="date" placeholder="Date" onChange={e => setInputDate(e.target.value)} value={inputDate} />

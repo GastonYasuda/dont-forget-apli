@@ -1,0 +1,40 @@
+.card__style {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr;
+    padding-bottom: 400px;
+
+    .eachTask {
+        padding: 15px;
+
+        .eachTask__content {
+            margin: 0 0 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .buttonContainer {
+                display: flex;
+                justify-content: flex-end;
+
+                .btn {
+                    margin-left: 5px;
+                }
+
+            }
+        }
+
+        @media screen and (max-width:700px) {
+            .eachTask__content {
+                flex-direction: column;
+
+            }
+
+            .buttonContainer {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+        }
+    }
+}
