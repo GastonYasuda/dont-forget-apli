@@ -29,7 +29,7 @@ const Login = () => {
                 continueOmit ?
                     <Home />
                     :
-                    <div className='login d-f-row '>
+                    <div className='login'>
 
                         <div className='login__container d-f-col-center-center b-radius-15'>
 
@@ -59,7 +59,7 @@ const Login = () => {
                         </div>
 
                         <section className='login__img d-f-row-center-center'>
-                            <img src="/assets/thinking.png" alt="women thinking" />
+                            <img src="/assets/thinking.png" alt="women thinking" className='women-img' />
                         </section>
                     </div>
             }

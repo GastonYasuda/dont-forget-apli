@@ -1,9 +1,11 @@
 .loginBody {
 
-
     .login {
+        display: flex;
+        flex-direction: row;
 
         .login__container {
+            min-width: 315px;
             background-color: #ffff;
             margin: 64px;
             padding: 25px;
@@ -19,12 +21,36 @@
         }
 
         .login__img {
-            flex: 3;
             justify-content: center;
             align-items: center;
 
-            & img {
-                width: 60%;
+            .women-img {
+                width: 90%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:700px) {
+    .loginBody {
+
+        .login {
+            width: 95%;
+            margin: 0 auto 50px;
+            flex-direction: column-reverse;
+            justify-content: center;
+
+            .login__container {
+                width: 95%;
+                margin: auto;
+            }
+
+            .login__img {
+                margin: 15px 0;
+
+                .women-img {
+                    width: 60%;
+                }
             }
         }
     }
